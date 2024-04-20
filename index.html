@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Google tag (gtag.js) -->
+
+    <!-- Taken from view-source:https://voyager.minedojo.org/ -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q75H4YSQ8M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Q75H4YSQ8M');
+    </script>
+    <!-- Adapted from Dave Epstein's BlogGAN webpage template: https://dave.ml/blobgan/ -->
+    <title>Learning to Abstract for In-Context Agents
+    </title>
+    <link rel="stylesheet" href="./bulma.min.css" />
+    <link rel="stylesheet" href=".bulma-carousel.min.css" />
+    <link rel="stylesheet" href=".bulma-slider.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            /* font-family: "Titillium Web", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
+            font-family: 'Lato';
+        }
+
+        .cite {
+            padding: 0px;
+            background: #ffffff;
+            font-size: 18px
+        }
+
+        .card {
+            border: 1px solid #ccc
+        }
+
+        /* img { margin-bottom:-6px;} */
+        p {
+            font-size: 18px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="Learning to Abstract for In-Context Agents">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#f5ece5">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#276FBF">
+    <meta name="msapplication-TileColor" content="#276FBF">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        html,
+        body {
+            /* font-family: 'GT Ultra', sans-serif !important; */
+            font-family: 'Lato' !important;
+            font-weight: 400;
+            font-size: 18px;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            /* color: #1f1e1d; */
+            color: #000000;
+            background-color: #f5ece5;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        a {
+            /* color: #276FBF !important; */
+            color: #276FBF;
+            text-decoration: none;
+            font-weight: 400;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            /* color: #184477 !important; */
+            color: #184477;
+        }
+
+        section h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        section h5,
+        section h3 {
+            justify-content: space-between;
+
+            display: flex;
+            align-items: center;
+        }
+    </style>
+
+    <style>
+        .outer {
+            width: 100%;
+            height: 200px;
+            background-color: red;
+        }
+
+        .inner {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+            color: white;
+            cursor: crosshair;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .video-responsive {
+        text-align: center;
+        }
+
+        @media screen and (max-width: 560px) {
+        .video-responsive {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+        .video-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+        }
+
+        .log {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .inner_cat {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+            color: white;
+            cursor: crosshair;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .log_cat {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .inner_sn {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+            color: white;
+            cursor: crosshair;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .log_sn {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .inner_gc {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+            color: white;
+            cursor: crosshair;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .log_gc {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .inner_shading {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+            color: white;
+            cursor: crosshair;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .log_shading {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .inner_gqa {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+            color: white;
+            cursor: crosshair;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .log_gqa {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .inner_demo {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            margin: auto;
+            color: white;
+            cursor: crosshair;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .log_demo {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* .demo_gif {
+        position: relative;
+        width: 50%;
+        text-align: center;
+        margin: auto;
+        } */
+    </style>
+
+
+    <style>
+        .project-links {
+            /* width: 400px;
+        height: 400px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center; */
+            max-width: 600px;
+            margin: 0 auto;
+            align-items: center;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+
+    <!-- Paper button -->
+    <style>
+        .btn-paper {
+            width: 95px;
+            height: 35px;
+            cursor: pointer;
+            border-radius: 25px;
+            background: transparent;
+            border: 2px solid #91C9FF;
+            outline: none;
+            transition: 1s ease-in-out;
+            text-decoration: none;
+            align-items: center;
+            display: flex;
+            text-align: center;
+            font-weight: 500;
+            color: black;
+        }
+
+        .btn-paper:hover {
+            transition: 0.75s ease-in-out;
+            background: #8bb2ff1e;
+            text-decoration: none;
+            font-weight: 500;
+            color: black;
+        }
+
+        .vertical-center-paper {
+            height: 80%;
+            position: relative;
+            /* top: 0px;
+            right: 0;
+            float: left; */
+            padding-right: 1px;
+            padding-left: 6px;
+        }
+
+    </style>
+
+    <!-- Paper button -->
+    <style>
+        .btn-paper-helper-x {
+            width: 130px;
+            height: 35px;
+            cursor: pointer;
+            border-radius: 25px;
+            background: transparent;
+            border: 2px solid #91C9FF;
+            outline: none;
+            transition: 1s ease-in-out;
+            text-decoration: none;
+            align-items: center;
+            display: flex;
+            text-align: center;
+            font-weight: 500;
+            color: black;
+        }
+    
+        .btn-paper-helper-x:hover {
+            transition: 0.75s ease-in-out;
+            background: #8bb2ff1e;
+            text-decoration: none;
+            font-weight: 500;
+            color: black;
+        }
+    
+        .vertical-center-paper-helper-x {
+            height: 80%;
+            position: relative;
+            /* top: 0px;
+                right: 0;
+                float: left; */
+            padding-right: 1px;
+            padding-left: 6px;
+        }
+    </style>
+
+    <!-- Code button -->
+    <style>
+        .btn-code {
+            width: 95px;
+            height: 35px;
+            cursor: pointer;
+            border-radius: 25px;
+            background: transparent;
+            border: 2px solid #91C9FF;
+            outline: none;
+            transition: 1s ease-in-out;
+            text-decoration: none;
+            align-items: center;
+            display: flex;
+            text-align: center;
+            font-weight: 500;
+            color: black;
+        }
+
+        .btn-code:hover {
+            transition: 0.75s ease-in-out;
+            background: #8bb2ff1e;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .vertical-center-code {
+            height: 60%;
+            position: relative;
+            /* top: 0px;
+            left: 0px;
+            float: left; */
+            padding-right: 8px;
+            padding-left: 10px;
+        }
+    </style>
+
+    <!-- Citation button -->
+    <style>
+        .btn-citation {
+            width: 110px;
+            height: 35px;
+            cursor: pointer;
+            border-radius: 25px;
+            background: transparent;
+            border: 2px solid #91C9FF;
+            outline: none;
+            transition: 1s ease-in-out;
+            text-decoration: none;
+            align-items: center;
+            display: flex;
+            text-align: center;
+            font-weight: 500;
+            color: black;
+        }
+
+        .btn-citation:link {
+            color: black;
+        }
+
+        .btn-citation:visited {
+            color: black;
+        }
+
+        /* .btn-citation:hover {
+            color: black;
+        } */
+        .btn-citation:active {
+            color: black;
+        }
+
+        .btn-citation:hover {
+            transition: 0.75s ease-in-out;
+            background: #8bb2ff1e;
+            text-decoration: none;
+            font-weight: 500;
+            color: black;
+        }
+
+        .vertical-center-cit {
+            height: 70%;
+            position: relative;
+            /* top: 0px;
+            right: 0;
+            float: left; */
+            padding-right: 7px;
+            padding-left: 6px;
+        }
+    </style>
+
+    <style>
+        .btn-twitter {
+            width: 100px;
+            height: 35px;
+            cursor: pointer;
+            border-radius: 25px;
+            background: transparent;
+            border: 2px solid #91C9FF;
+            outline: none;
+            transition: 1s ease-in-out;
+            text-decoration: none;
+            align-items: center;
+            display: flex;
+            text-align: center;
+            font-weight: 500;
+            color: black;
+        }
+
+        .btn-twitter:link {
+            color: black;
+        }
+
+        .btn-twitter:visited {
+            color: black;
+        }
+
+        /* .btn-citation:hover {
+            color: black;
+        } */
+        .btn-twitter:active {
+            color: black;
+        }
+
+        .btn-twitter:hover {
+            transition: 0.75s ease-in-out;
+            background: #8bb2ff1e;
+            text-decoration: none;
+            font-weight: 500;
+            color: black;
+        }
+    </style>
+
+    <!-- Interactive button -->
+    <style>
+        .btn-interact {
+            width: 133px;
+            height: 35px;
+            cursor: pointer;
+            border-radius: 25px;
+            background: transparent;
+            border: 2px solid #91C9FF;
+            outline: none;
+            transition: 1s ease-in-out;
+            text-decoration: none;
+            align-items: center;
+            display: flex;
+            text-align: center;
+            font-weight: 500;
+            color: black;
+        }
+
+        .btn-interact:link {
+            color: black;
+        }
+
+        .btn-interact:visited {
+            color: black;
+        }
+
+        /* .btn-citation:hover {
+                color: black;
+            } */
+        .btn-interact:active {
+            color: black;
+        }
+
+        .btn-interact:hover {
+            transition: 0.75s ease-in-out;
+            background: #8bb2ff1e;
+            text-decoration: none;
+            font-weight: 500;
+            color: black;
+        }
+
+        .vertical-center-interact {
+            height: 70%;
+            position: relative;
+            /* top: 0px;
+                right: 0;
+                float: left; */
+            padding-right: 7px;
+            padding-left: 6px;
+        }
+    </style>
+
+    <style>
+        .vertical-center {
+            height: 80%;
+            position: relative;
+            top: 0px;
+            right: 0;
+            float: left;
+        }
+    </style>
+
+    <style>
+        /* The grid: Four equal columns that floats next to each other */
+        /* .column {
+            float: left;
+            width: 25% !important;
+            padding: 10px;
+        } */
+
+        /* Style the images inside the grid */
+        .column img {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+        .column img:hover {
+            opacity: 1;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* The expanding image container (positioning is needed to position the close button and the text) */
+        .container {
+            position: relative;
+            display: none;
+        }
+
+        /* Expanding image text */
+        #imgtext {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            color: white;
+            font-size: 20px;
+        }
+
+        /* Closable button inside the image */
+        .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: rgb(0, 0, 0);
+            font-size: 35px;
+            cursor: pointer;
+        }
+
+        .centered {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.26);
+        }
+
+        .text-block {
+            position: absolute;
+            /* bottom: 25px;
+        right: 20px; */
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            background-color: rgba(0, 0, 0, 0.26);
+            color: white;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .parentContainer {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        
+
+        .column-left,
+        .column-right {
+        width: 50%;
+        }
+
+        .container {
+        display: flex;
+        padding: 0px; /* Adjust as needed */
+        }
+
+        .columns {
+            justify-content: center;
+        }
+
+        .video-column {
+            padding: 0; /* Remove padding */
+        }
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* this will center the videos */
+        }
+/* 
+        .is-one-third-desktop {
+            flex: 0 1 calc(32.333% - 4px); 
+            margin: 2px; 
+            max-width: 32.333%;
+        } */
+
+        /* .is-one-third-desktop {
+            flex: 0 1 calc(24% - 4px); 
+            margin: 2px; 
+            max-width: 24%;
+        } */
+
+        .is-centered {
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body class="w3-white">
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top w3-margin-bottom" style="max-width:1080px;">
+
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+
+            <!-- paper container -->
+            <div class="w3-display-container w3-row w3-white w3-margin-bottom">
+                <div class="w3-center">
+                    <h2>Learning to Abstract for In-Context Agents</h2>
+                    <br>
+                    <h5><a href="https://www.gabesarch.me">Gabriel Sarch</a> &emsp;&emsp; 
+                        <a href="https://www.linkedin.com/in/lawrencejang">Lawrence Jang</a> &emsp;&emsp;
+                        <a
+                            href="https://sites.google.com/andrew.cmu.edu/tarrlab/people/michael-j-tarr">Michael
+                            Tarr</a> &emsp;&emsp;
+                        <!-- <a href="https://www.cs.cmu.edu/~wcohen/">William Cohen</a> &emsp;&emsp;
+                        <a href="https://kennethmarino.com/">Kennth Marino</a> &emsp;&emsp;
+                        <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>  -->
+                    </h5>
+                    <h5>
+                        <!-- <a href="https://www.gabesarch.me">Gabriel Sarch</a> &emsp;&emsp;
+                        <a href="https://www.linkedin.com/in/lawrencejang">Lawrence Jang</a> &emsp;&emsp;
+                        <a href="https://sites.google.com/andrew.cmu.edu/tarrlab/people/michael-j-tarr">Michael
+                            Tarr</a> &emsp;&emsp; -->
+                        <a href="https://www.cs.cmu.edu/~wcohen/">William Cohen</a> &emsp;&emsp;
+                        <a href="https://kennethmarino.com/">Kennth Marino</a> &emsp;&emsp;
+                        <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>
+                    </h5>
+                    <br>
+                    <div class="w3-center">
+                        <h5>Carnegie Mellon University</h5><h5>Google Deepmind</h5>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="project-links">
+                    <a href="" target="_blank" class="btn-paper"
+                        role="button">
+                        <img src="images/paper.png" class="vertical-center-paper"> Paper
+                    </a>
+                    <a href="" target="_blank" class="btn-code"
+                        role="button">
+                        <img src="images/code.png" class="vertical-center-code"> Code
+                    </a>
+                    <a href="" target="_blank" class="btn-twitter" role="button">
+                        <img src="images/twitter-117.png" class="vertical-center-code"> Tweet
+                    </a>
+                </div>
+
+                <hr>
+                <br>
+                
+                
+                <hr>
+                <div class="w3-center">
+                    <h2>Abstract</h2>
+                </div>
+                <p align="justify">Large-scale generative language and vision-language models (LLMs and VLMs) exhibit impressive few-shot learning
+                abilities. This capability has led to their adoption for decision making in interactive domains through in-context
+                learning in which a prompt and domain-relevant information and examples are appended to the model's context window.
+                However, high-quality in-domain examples are needed, and engineering those as well as the prompt itself can be costly.
+                We propose a more efficient method to obtain prompt examples in retrieval-augmented language and vision model agents.
+                Our method learns a memory of experience abstractions directly from raw demonstration trajectories and human feedback.
+                Specifically, given a noisy trajectory for a task in a new domain, LLMs/VLMs can be used to abstract the trajectory into
+                a corresponding general program of the experience. This is accomplished by removing inefficiencies, annotating subgoals,
+                rules, exceptions, and summaries as comments in language format through appropriate prompting (e.g., ``add abstractions
+                comments of the activity''). We demonstrate that this method rapidly learns useful experience abstractions. When used as
+                in-context examples in retrieval-augmented LLM and VLM agents, these experiences lead to significantly improved
+                decision-making and abstraction formation to assist future inferences. This method improves on the state-of-the-art when
+                tested both in dialogue-based instruction following in household environments in TEACh and in multimodal autonomous web
+                agents in Visual Web Arena. In TEACh, we improve on the state-of-the-art by 12.6% in goal-condition success,
+                outperforming LLM agents that use the raw visual demonstrations as in context examples without abstraction learning. In
+                Visual Web Arena, we improve on the state-of-the-art by 8.4% in overall task success, outperforming VLM agents that use
+                hand-written examples. Lastly, we compare weight fine-tuning and in-context abstraction learning and find the two to be
+                complementary, with a combination of the two giving the best performance.
+                </p>
+                <br>
+                <spacer type="horizontal" width="100" height="50"> </spacer>
+                <br>
+                <br>
+                <spacer type="horizontal" width="100" height="50"> </spacer>
+                <br>
+                <hr>
+                </div>
+                <h4>See our papers for more!</h4>
+
+
+                <section id="citation">
+                    <h2>Citation</h2>
+                    <div class="cit_cont">
+                        <pre style="background-color:#F5F5F5;"><code><font size="-1">@inproceedings{sarch2024ical,
+                        title = "Learning to Abstract for In-Context Agents",
+                        author = "Sarch, Gabriel and
+                        Jang, Lawrence and
+                        Tarr, Michael and
+                        Cohen, William and
+                        Marino, Kenneth and
+                        Fragkiadaki, Katerina",
+                        booktitle = "",
+                        year = "2024"}
+                    </font></code></pre>
+                    </div>
+                </section>
+                <hr>
+                <br>
+                <br>
+
+                <!-- end paper container -->
+
+            </div><!-- End Grid -->
+        </div><!-- End Page Container -->
+
+</body>
+
+</html>
