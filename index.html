@@ -740,7 +740,7 @@
             box-sizing: border-box;
         }
 
-        .tabcontent {
+        /* .tabcontent {
             display: none;
             width: 100%;
             float: left;
@@ -768,7 +768,64 @@
 
         .tabs button.active {
             background-color: #ccc;
+        } */
+
+        /* Basic styling for the tab container */
+        .tabs {
+            overflow: hidden;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+
+        /* Style the buttons inside the tab */
+        .tablinks {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 17px;
+            width: 20%; /* Equal width tabs */
+        }
+
+        /* Change background color of tabs on hover */
+        .tablinks:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Create an active/current "tab button" class */
+        .tablinks.active {
+            background-color: #666;
+            color: white;
+        }
+
+        /* Tab content (optional: hide initially with display:none) */
+        .tabcontent {
+            display: none;
+            padding: 16px;
+            border: 1px solid #ccc;
+            border-top: none;
+            animation: fadeIn 0.5s; /* Fading effect */
+        }
+
+        .tabcontent {
+            display: none; /* Hide all tab content by default */
+            padding: 16px;
+            border: 1px solid #ccc;
+            border-top: none;
+            animation: fadeIn 0.5s; /* Fading effect */
+        }
+
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
 
 
     </style>
@@ -873,46 +930,61 @@
                 </div> -->
 
                 <div class="tabs">
-                    <button class="tablinks" onclick="openTab(event, 'Tab1')">Tab 1</button>
+                    <button class="tablinks" onclick="openTab(event, 'Tab1')">Make Toast</button>
                     <button class="tablinks" onclick="openTab(event, 'Tab2')">Tab 2</button>
                     <button class="tablinks" onclick="openTab(event, 'Tab3')">Tab 3</button>
-                </div>
-                
-                <div id="Tab1" class="tabcontent">
-                    <div id="textBlock" style="width: 40%; float: left;">Text for Tab 1</div>
-                    <div id="graphic" style="width: 20%; float: left;">Graphic for Tab 1</div>
-                    <div id="container" style="width: 40%; float: left; height: 800px; overflow-y: auto;">Content for Tab 1</div>
-                </div>
-                
-                <div id="Tab2" class="tabcontent">
-                    <div id="textBlock" style="width: 40%; float: left;">Text for Tab 2</div>
-                    <div id="graphic" style="width: 20%; float: left;">Graphic for Tab 2</div>
-                    <div id="container" style="width: 40%; float: left; height: 800px; overflow-y: auto;">Content for Tab 2</div>
-                </div>
-                
-                <div id="Tab3" class="tabcontent">
-                    <div id="textBlock" style="width: 40%; float: left;">Text for Tab 3</div>
-                    <div id="graphic" style="width: 20%; float: left;">Graphic for Tab 3</div>
-                    <div id="container" style="width: 40%; float: left; height: 800px; overflow-y: auto;">Content for Tab 3</div>
+                    <button class="tablinks" onclick="openTab(event, 'Tab4')">Tab 4</button>
+                    <button class="tablinks" onclick="openTab(event, 'Tab5')">Tab 5</button>
                 </div>
 
-                <!-- <div id="Tab1" class="tabcontent">
-                    <div style="width: 40%; float: left;">Text for Tab 1</div>
-                    <div style="width: 20%; float: left;">Graphic for Tab 1</div>
-                    <div id="containerTab1" style="width: 40%; float: left; height: 800px; overflow-y: auto;"></div>
+                <div id="Tab1" class="tabcontent">
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
+                    <div id="textBlockTab1" style="width: 40%; float: left; height: 400px; overflow-y: auto;"></div>
+                    <div style="width: 20%; float: left; padding-top: 150px; padding-left: 10px; padding-right: 10px;"><img src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab1" style="width: 40%; float: left; height: 400px; overflow-y: auto;">Text for Tab 2</div>
                 </div>
                 
                 <div id="Tab2" class="tabcontent">
-                    <div style="width: 40%; float: left;">Text for Tab 2</div>
-                    <div style="width: 20%; float: left;">Graphic for Tab 2</div>
-                    <div id="containerTab2" style="width: 40%; float: left; height: 800px; overflow-y: auto;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
+                    <div id="textBlockTab2" style="width: 40%; float: left; height: 400px; overflow-y: auto;">Text for Tab 2</div>
+                    <div style="width: 20%; float: left; padding-top: 150px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab2" style="width: 40%; float: left; height: 400px; overflow-y: auto;"></div>
                 </div>
                 
                 <div id="Tab3" class="tabcontent">
-                    <div style="width: 40%; float: left;">Text for Tab 3</div>
-                    <div style="width: 20%; float: left;">Graphic for Tab 3</div>
-                    <div id="containerTab3" style="width: 40%; float: left; height: 800px; overflow-y: auto;"></div>
-                </div> -->
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
+                    <div id="textBlockTab3" style="width: 40%; float: left; height: 400px; overflow-y: auto;">Text for Tab 3</div>
+                    <div style="width: 20%; float: left; padding-top: 150px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab3" style="width: 40%; float: left; height: 400px; overflow-y: auto;"></div>
+                </div>
+
+                <div id="Tab4" class="tabcontent">
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
+                    <div id="textBlockTab4" style="width: 40%; float: left; height: 400px; overflow-y: auto;">Text for Tab 3</div>
+                    <div style="width: 20%; float: left; padding-top: 150px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab3" style="width: 40%; float: left; height: 400px; overflow-y: auto;"></div>
+                </div>
+
+                <div id="Tab5" class="tabcontent">
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
+                    <div id="textBlockTab5" style="width: 40%; float: left; height: 400px; overflow-y: auto;">Text for Tab 3</div>
+                    <div style="width: 20%; float: left; padding-top: 150px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab3" style="width: 40%; float: left; height: 400px; overflow-y: auto;"></div>
+                </div>
 
                 <br>
                 <spacer type="horizontal" width="100" height="50"> </spacer>
@@ -978,33 +1050,84 @@
     //     typeLine(0);
     // }
 
-    function typeWriter(text, colors, typingSpeed) {
-        const lines = text.split('\n'); // Split the text into lines
-        let currentLine = 0;
+    // function typeWriter(text, colors, typingSpeed) {
+    //     const lines = text.split('\n'); // Split the text into lines
+    //     let currentLine = 0;
 
-        function typeLine(line) {
-            if (line >= lines.length) return; // Stop if all lines are typed
-            const words = lines[line].split(' '); // Split the line into words
-            const span = document.createElement('span');
-            span.style.color = colors[line];
-            document.getElementById('container').appendChild(span);
+    //     function typeLine(line) {
+    //         if (line >= lines.length) return; // Stop if all lines are typed
+    //         const words = lines[line].split(' '); // Split the line into words
+    //         const span = document.createElement('span');
+    //         span.style.color = colors[line];
+    //         document.getElementById('container').appendChild(span);
 
-            let i = 0;
-            function typeWord() {
-                if (i < words.length) {
-                    span.appendChild(document.createTextNode(words[i] + ' ')); // Append each word followed by a space
-                    i++;
-                    setTimeout(typeWord, typingSpeed); // Wait before typing the next word
-                } else {
-                    document.getElementById('container').appendChild(document.createElement('br')); // Move to the next line
-                    typeLine(line + 1); // Start typing the next line
+    //         let i = 0;
+    //         function typeWord() {
+    //             if (i < words.length) {
+    //                 span.appendChild(document.createTextNode(words[i] + ' ')); // Append each word followed by a space
+    //                 i++;
+    //                 setTimeout(typeWord, typingSpeed); // Wait before typing the next word
+    //             } else {
+    //                 document.getElementById('container').appendChild(document.createElement('br')); // Move to the next line
+    //                 typeLine(line + 1); // Start typing the next line
+    //             }
+    //         }
+    //         typeWord();
+    //     }
+
+    //     typeLine(0); // Start typing from the first line
+    // }
+
+    function typeWriter(containerId, text, colors, typingSpeed) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; // Clear the previous content
+            const lines = text.split('\n');
+            let currentLine = 0;
+            let typingComplete = false;
+
+            function typeLine(line) {
+                if (line >= lines.length) {
+                    typingComplete = true;
+                    return;
                 }
-            }
-            typeWord();
-        }
+                const span = document.createElement('span');
+                span.style.color = colors[line % colors.length]; // Cycle through colors
+                if (span.style.color === 'black' || span.style.color === '#000' || span.style.color === '#000000') {
+                    span.style.fontSize = '12px';
+                }
 
-        typeLine(0); // Start typing from the first line
-    }
+                container.appendChild(span);
+
+                let words = lines[line].split(' ');
+                let i = 0;
+                function typeWord() {
+                    if (i < words.length) {
+                        span.appendChild(document.createTextNode(words[i++] + ' '));
+                        setTimeout(typeWord, typingSpeed);
+                    } else {
+                        container.appendChild(document.createElement('br'));
+                        typeLine(line + 1);
+                    }
+                }
+                typeWord();
+            }
+
+            function displayFullText() {
+                container.innerHTML = ''; // Clear existing partial content
+                const fullText = document.createElement('div');
+                fullText.innerText = text; // Insert all text at once
+                container.appendChild(fullText);
+            }
+
+            // Event listener for tab focus
+            document.addEventListener('visibilitychange', function () {
+                if (document.visibilityState === 'visible' && !typingComplete) {
+                    displayFullText();
+                }
+            });
+
+            typeLine(0);
+        }
 
     // function typeWriter(containerId, text, colors, typingSpeed) {
     //         const container = document.getElementById(containerId);
@@ -1016,6 +1139,12 @@
     //             if (line >= lines.length) return;
     //             const span = document.createElement('span');
     //             span.style.color = colors[line % colors.length]; // Cycle through colors if not enough
+
+    //             // Check if the current color is black, and adjust the font size accordingly
+    //             if (span.style.color === 'black' || span.style.color === '#000' || span.style.color === '#000000') {
+    //                 span.style.fontSize = '12px'; // Change '24px' to the desired font size for black text
+    //             }
+
     //             container.appendChild(span);
 
     //             let words = lines[line].split(' ');
@@ -1039,68 +1168,132 @@
     // const colors = ["red", "blue", 'green']; // Colors for each line
     // const typingSpeed = 40; // milliseconds per character
 
-    const text = "Instruction:\n<Driver> task? <Commander> Hello. First we need to cut bread. <Commander> Next we need to toast a slice. <Driver> next. <Commander> All done. \n\nAbstracted State:\n'Potato_2': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['CounterTop', 'Plate']}\n'Knife_16': {'label': 'Knife', 'holding': False, 'supported_by': ['Cabinet']}\n'Bread_17': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['DiningTable']}\n'Knife_29': {'label': 'Knife', 'holding': False, 'supported_by': ['DiningTable']}\n'CounterTop_42': {'label': 'CounterTop'}\n'CounterTop_43': {'label': 'CounterTop'}\n'CounterTop_58': {'label': 'CounterTop'}\n'Bread_61': {'label': 'Bread', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['CounterTop']}\n'Knife_62': {'label': 'Knife', 'holding': False, 'supported_by': ['Fridge']}\n'Toaster_63': {'label': 'Toaster', 'toggled': False}\n'Plate_70': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['CounterTop']}\n'Microwave_77': {'label': 'Microwave', 'toggled': True, 'open': False}\n'SinkBasin_80': {'label': 'SinkBasin'}\n'Knife_85': {'label': 'Knife', 'holding': True, 'supported_by': ['CounterTop']}\n'Fridge_95': {'label': 'Fridge', 'open': False}\n'DiningTable_99': {'label': 'DiningTable'}\n'BreadSliced_100': {'label': 'BreadSliced', 'holding': False, 'cooked': False, 'supported_by': ['CounterTop']}\n\nTask Decomposition & Subgoals:\nSummary: The script slices a piece of bread, toasts it, and then places the toasted slice on a clean plate.\nPlan:\n1. Go to the knife and pick it up.\n2. Go to the bread and slice it.\n3. Initialize a new InteractionObject for the sliced bread.\n4. Go to the toaster and place the bread slice in it.\n5. Toggle the toaster on to start toasting.\n6. Toggle the toaster off after toasting is done and update the bread slice's 'cooked' state to True.\n7. Pick up the toasted bread slice.\n8. Go to the clean plate and place the toasted bread slice on it.\n\nAbstraction Comments:\n1. The knife is picked up to slice the bread, which is necessary to create slices for toasting.\n2. The toaster is used to toast a slice of bread, fulfilling the requirement to toast a slice for consumption.\n3. The state of the bread slice is updated to reflect that it has been toasted, ensuring consistency with the actual object state.\n4. A clean plate is located and used to place the toasted bread slice on, adhering to the requirement of placing toast on a clean plate.\n\nOptimized Actions & State Changes:\n# Define InteractionObject instances for the knife, bread, toaster, and a clean plate\nknife = InteractionObject('Knife', object_instance='Knife_85')  # Knife is on the countertop\nbread = InteractionObject('Bread', object_instance='Bread_61')  # Bread is on the countertop\ntoaster = InteractionObject('Toaster', object_instance='Toaster_63')  # Toaster is not toggled\nclean_plate = InteractionObject('Plate', object_instance='Plate_70')  # Clean plate is on the countertop\n\n# Slice the bread\nknife.go_to()\nknife.pickup()\nbread.go_to()\nbread.slice()\nbread_sliced = InteractionObject('BreadSliced', parent_object=bread.object_instance)  # Initialize new sliced object from sliced parent\n\n# Toast a slice of bread\ntoaster.go_to()\nbread_sliced.pickup()\nbread_sliced.place(toaster)\ntoaster.toggle_on()  # Start toasting the bread slice\n# Wait for the bread to toast (this step is abstracted in the script)\ntoaster.toggle_off()  # Stop toasting after it's done\nbread_sliced.change_state('cooked', True)  # Update the state of the bread slice to indicate it's toasted\nbread_sliced.pickup()  # Remove the toasted bread slice from the toaster\n\n# Place the toasted bread slice on a clean plate\nclean_plate.go_to()  # Navigate to the clean plate\nbread_sliced.place(clean_plate)  # Place the toasted bread slice on the clean plate"
-    const colors = ['grey', 'black', 'black', 'red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black']
-    const typingSpeed = 15; // milliseconds per character
+    // const text = "Instruction:\n<Driver> task? <Commander> Hello. First we need to cut bread. <Commander> Next we need to toast a slice. <Driver> next. <Commander> All done. \n\nAbstracted State:\n'Potato_2': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['CounterTop', 'Plate']}\n'Knife_16': {'label': 'Knife', 'holding': False, 'supported_by': ['Cabinet']}\n'Bread_17': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['DiningTable']}\n'Knife_29': {'label': 'Knife', 'holding': False, 'supported_by': ['DiningTable']}\n'CounterTop_42': {'label': 'CounterTop'}\n'CounterTop_43': {'label': 'CounterTop'}\n'CounterTop_58': {'label': 'CounterTop'}\n'Bread_61': {'label': 'Bread', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['CounterTop']}\n'Knife_62': {'label': 'Knife', 'holding': False, 'supported_by': ['Fridge']}\n'Toaster_63': {'label': 'Toaster', 'toggled': False}\n'Plate_70': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['CounterTop']}\n'Microwave_77': {'label': 'Microwave', 'toggled': True, 'open': False}\n'SinkBasin_80': {'label': 'SinkBasin'}\n'Knife_85': {'label': 'Knife', 'holding': True, 'supported_by': ['CounterTop']}\n'Fridge_95': {'label': 'Fridge', 'open': False}\n'DiningTable_99': {'label': 'DiningTable'}\n'BreadSliced_100': {'label': 'BreadSliced', 'holding': False, 'cooked': False, 'supported_by': ['CounterTop']}\n\nTask Decomposition & Subgoals:\nSummary: The script slices a piece of bread, toasts it, and then places the toasted slice on a clean plate.\nPlan:\n1. Go to the knife and pick it up.\n2. Go to the bread and slice it.\n3. Initialize a new InteractionObject for the sliced bread.\n4. Go to the toaster and place the bread slice in it.\n5. Toggle the toaster on to start toasting.\n6. Toggle the toaster off after toasting is done and update the bread slice's 'cooked' state to True.\n7. Pick up the toasted bread slice.\n8. Go to the clean plate and place the toasted bread slice on it.\n\nAbstraction Comments:\n1. The knife is picked up to slice the bread, which is necessary to create slices for toasting.\n2. The toaster is used to toast a slice of bread, fulfilling the requirement to toast a slice for consumption.\n3. The state of the bread slice is updated to reflect that it has been toasted, ensuring consistency with the actual object state.\n4. A clean plate is located and used to place the toasted bread slice on, adhering to the requirement of placing toast on a clean plate.\n\nOptimized Actions & State Changes:\n# Define InteractionObject instances for the knife, bread, toaster, and a clean plate\nknife = InteractionObject('Knife', object_instance='Knife_85')  # Knife is on the countertop\nbread = InteractionObject('Bread', object_instance='Bread_61')  # Bread is on the countertop\ntoaster = InteractionObject('Toaster', object_instance='Toaster_63')  # Toaster is not toggled\nclean_plate = InteractionObject('Plate', object_instance='Plate_70')  # Clean plate is on the countertop\n\n# Slice the bread\nknife.go_to()\nknife.pickup()\nbread.go_to()\nbread.slice()\nbread_sliced = InteractionObject('BreadSliced', parent_object=bread.object_instance)  # Initialize new sliced object from sliced parent\n\n# Toast a slice of bread\ntoaster.go_to()\nbread_sliced.pickup()\nbread_sliced.place(toaster)\ntoaster.toggle_on()  # Start toasting the bread slice\n# Wait for the bread to toast (this step is abstracted in the script)\ntoaster.toggle_off()  # Stop toasting after it's done\nbread_sliced.change_state('cooked', True)  # Update the state of the bread slice to indicate it's toasted\nbread_sliced.pickup()  # Remove the toasted bread slice from the toaster\n\n# Place the toasted bread slice on a clean plate\nclean_plate.go_to()  # Navigate to the clean plate\nbread_sliced.place(clean_plate)  # Place the toasted bread slice on the clean plate"
+    // const colors = ['grey', 'black', 'black', 'red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black']
+    // const typingSpeed = 15; // milliseconds per character
 
-    typeWriter(text, colors, 50); // Initialize the typing effect
-
-    function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        // Optionally, add this to show the first tab by default
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelector(".tablinks").click();
-        });
+    // typeWriter(text, colors, 50); // Initialize the typing effect
 
     // function openTab(evt, tabName) {
-    //     var i, tabcontent, tablinks;
-    //     tabcontent = document.getElementsByClassName("tabcontent");
-    //     for (i = 0; i < tabcontent.length; i++) {
-    //         tabcontent[i].style.display = "none";
+    //         var i, tabcontent, tablinks;
+    //         tabcontent = document.getElementsByClassName("tabcontent");
+    //         for (i = 0; i < tabcontent.length; i++) {
+    //             tabcontent[i].style.display = "none";
+    //         }
+    //         tablinks = document.getElementsByClassName("tablinks");
+    //         for (i = 0; i < tablinks.length; i++) {
+    //             tablinks[i].className = tablinks[i].className.replace(" active", "");
+    //         }
+    //         document.getElementById(tabName).style.display = "block";
+    //         evt.currentTarget.className += " active";
     //     }
-    //     tablinks = document.getElementsByClassName("tablinks");
-    //     for (i = 0; i < tablinks.length; i++) {
-    //         tablinks[i].className = tablinks[i].className.replace(" active", "");
-    //     }
-    //     document.getElementById(tabName).style.display = "block";
-    //     evt.currentTarget.className += " active";
 
-    //     // Define texts, colors, and speed for each tab
-    //     const typingSpeed = 15; // Same speed for all tabs for simplicity
-    //     switch (tabName) {
-    //         case 'Tab1':
-    //             typeWriter(
-    //                 'containerTab1', 
-    //                 "Instruction:\n<Driver> task? <Commander> Hello. First we need to cut bread. <Commander> Next we need to toast a slice. <Driver> next. <Commander> All done. \n\nAbstracted State:\n'Potato_2': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['CounterTop', 'Plate']}\n'Knife_16': {'label': 'Knife', 'holding': False, 'supported_by': ['Cabinet']}\n'Bread_17': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['DiningTable']}\n'Knife_29': {'label': 'Knife', 'holding': False, 'supported_by': ['DiningTable']}\n'CounterTop_42': {'label': 'CounterTop'}\n'CounterTop_43': {'label': 'CounterTop'}\n'CounterTop_58': {'label': 'CounterTop'}\n'Bread_61': {'label': 'Bread', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['CounterTop']}\n'Knife_62': {'label': 'Knife', 'holding': False, 'supported_by': ['Fridge']}\n'Toaster_63': {'label': 'Toaster', 'toggled': False}\n'Plate_70': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['CounterTop']}\n'Microwave_77': {'label': 'Microwave', 'toggled': True, 'open': False}\n'SinkBasin_80': {'label': 'SinkBasin'}\n'Knife_85': {'label': 'Knife', 'holding': True, 'supported_by': ['CounterTop']}\n'Fridge_95': {'label': 'Fridge', 'open': False}\n'DiningTable_99': {'label': 'DiningTable'}\n'BreadSliced_100': {'label': 'BreadSliced', 'holding': False, 'cooked': False, 'supported_by': ['CounterTop']}\n\nTask Decomposition & Subgoals:\nSummary: The script slices a piece of bread, toasts it, and then places the toasted slice on a clean plate.\nPlan:\n1. Go to the knife and pick it up.\n2. Go to the bread and slice it.\n3. Initialize a new InteractionObject for the sliced bread.\n4. Go to the toaster and place the bread slice in it.\n5. Toggle the toaster on to start toasting.\n6. Toggle the toaster off after toasting is done and update the bread slice's 'cooked' state to True.\n7. Pick up the toasted bread slice.\n8. Go to the clean plate and place the toasted bread slice on it.\n\nAbstraction Comments:\n1. The knife is picked up to slice the bread, which is necessary to create slices for toasting.\n2. The toaster is used to toast a slice of bread, fulfilling the requirement to toast a slice for consumption.\n3. The state of the bread slice is updated to reflect that it has been toasted, ensuring consistency with the actual object state.\n4. A clean plate is located and used to place the toasted bread slice on, adhering to the requirement of placing toast on a clean plate.\n\nOptimized Actions & State Changes:\n# Define InteractionObject instances for the knife, bread, toaster, and a clean plate\nknife = InteractionObject('Knife', object_instance='Knife_85')  # Knife is on the countertop\nbread = InteractionObject('Bread', object_instance='Bread_61')  # Bread is on the countertop\ntoaster = InteractionObject('Toaster', object_instance='Toaster_63')  # Toaster is not toggled\nclean_plate = InteractionObject('Plate', object_instance='Plate_70')  # Clean plate is on the countertop\n\n# Slice the bread\nknife.go_to()\nknife.pickup()\nbread.go_to()\nbread.slice()\nbread_sliced = InteractionObject('BreadSliced', parent_object=bread.object_instance)  # Initialize new sliced object from sliced parent\n\n# Toast a slice of bread\ntoaster.go_to()\nbread_sliced.pickup()\nbread_sliced.place(toaster)\ntoaster.toggle_on()  # Start toasting the bread slice\n# Wait for the bread to toast (this step is abstracted in the script)\ntoaster.toggle_off()  # Stop toasting after it's done\nbread_sliced.change_state('cooked', True)  # Update the state of the bread slice to indicate it's toasted\nbread_sliced.pickup()  # Remove the toasted bread slice from the toaster\n\n# Place the toasted bread slice on a clean plate\nclean_plate.go_to()  # Navigate to the clean plate\nbread_sliced.place(clean_plate)  # Place the toasted bread slice on the clean plate", 
-    //                 ['grey', 'black', 'black', 'red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'], 
-    //                 typingSpeed
-    //                 );
-    //             break;
-    //         case 'Tab2':
-    //             typeWriter('containerTab2', 'Different content\nFor Tab 2', ['green', 'black'], typingSpeed);
-    //             break;
-    //         case 'Tab3':
-    //             typeWriter('containerTab3', 'Another line\nYes, Tab 3', ['orange', 'purple'], typingSpeed);
-    //             break;
-    //     }
+    //     // Optionally, add this to show the first tab by default
+    //     document.addEventListener("DOMContentLoaded", function () {
+    //         document.querySelector(".tablinks").click();
+    //     });
+
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+
+        // Define texts, colors, and speed for each tab
+        const typingSpeed = 20; // Same speed for all tabs for simplicity
+        switch (tabName) {
+            case 'Tab1':
+                // document.getElementById('textBlockTab1').innerHTML = displayFormattedText("Instruction for Tab 1\nDetails of operation...");
+                typeWriter(
+                    'containerTab1', 
+                    "Instruction:\n<Driver> task? <Commander> Hello. First we need to cut bread. <Commander> Next we need to toast a slice. <Driver> next. <Commander> All done. \n\nAbstracted State:\n'Potato_2': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['CounterTop', 'Plate']}\n'Knife_16': {'label': 'Knife', 'holding': False, 'supported_by': ['Cabinet']}\n'Bread_17': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['DiningTable']}\n'Knife_29': {'label': 'Knife', 'holding': False, 'supported_by': ['DiningTable']}\n'CounterTop_42': {'label': 'CounterTop'}\n'CounterTop_43': {'label': 'CounterTop'}\n'CounterTop_58': {'label': 'CounterTop'}\n'Bread_61': {'label': 'Bread', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['CounterTop']}\n'Knife_62': {'label': 'Knife', 'holding': False, 'supported_by': ['Fridge']}\n'Toaster_63': {'label': 'Toaster', 'toggled': False}\n'Plate_70': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['CounterTop']}\n'Microwave_77': {'label': 'Microwave', 'toggled': True, 'open': False}\n'SinkBasin_80': {'label': 'SinkBasin'}\n'Knife_85': {'label': 'Knife', 'holding': True, 'supported_by': ['CounterTop']}\n'Fridge_95': {'label': 'Fridge', 'open': False}\n'DiningTable_99': {'label': 'DiningTable'}\n'BreadSliced_100': {'label': 'BreadSliced', 'holding': False, 'cooked': False, 'supported_by': ['CounterTop']}\n\nTask Decomposition & Subgoals:\nSummary: The script slices a piece of bread, toasts it, and then places the toasted slice on a clean plate.\nPlan:\n1. Go to the knife and pick it up.\n2. Go to the bread and slice it.\n3. Initialize a new InteractionObject for the sliced bread.\n4. Go to the toaster and place the bread slice in it.\n5. Toggle the toaster on to start toasting.\n6. Toggle the toaster off after toasting is done and update the bread slice's 'cooked' state to True.\n7. Pick up the toasted bread slice.\n8. Go to the clean plate and place the toasted bread slice on it.\n\nAbstraction Comments:\n1. The knife is picked up to slice the bread, which is necessary to create slices for toasting.\n2. The toaster is used to toast a slice of bread, fulfilling the requirement to toast a slice for consumption.\n3. The state of the bread slice is updated to reflect that it has been toasted, ensuring consistency with the actual object state.\n4. A clean plate is located and used to place the toasted bread slice on, adhering to the requirement of placing toast on a clean plate.\n\nOptimized Actions & State Changes:\n# Define InteractionObject instances for the knife, bread, toaster, and a clean plate\nknife = InteractionObject('Knife', object_instance='Knife_85')  # Knife is on the countertop\nbread = InteractionObject('Bread', object_instance='Bread_61')  # Bread is on the countertop\ntoaster = InteractionObject('Toaster', object_instance='Toaster_63')  # Toaster is not toggled\nclean_plate = InteractionObject('Plate', object_instance='Plate_70')  # Clean plate is on the countertop\n\n# Slice the bread\nknife.go_to()\nknife.pickup()\nbread.go_to()\nbread.slice()\nbread_sliced = InteractionObject('BreadSliced', parent_object=bread.object_instance)  # Initialize new sliced object from sliced parent\n\n# Toast a slice of bread\ntoaster.go_to()\nbread_sliced.pickup()\nbread_sliced.place(toaster)\ntoaster.toggle_on()  # Start toasting the bread slice\n# Wait for the bread to toast (this step is abstracted in the script)\ntoaster.toggle_off()  # Stop toasting after it's done\nbread_sliced.change_state('cooked', True)  # Update the state of the bread slice to indicate it's toasted\nbread_sliced.pickup()  # Remove the toasted bread slice from the toaster\n\n# Place the toasted bread slice on a clean plate\nclean_plate.go_to()  # Navigate to the clean plate\nbread_sliced.place(clean_plate)  # Place the toasted bread slice on the clean plate", 
+                    ['grey', 'black', 'black', 'red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'], 
+                    typingSpeed
+                    );
+                break;
+            case 'Tab2':
+                // document.getElementById('textBlockTab2').innerHTML = displayFormattedText("Different instructions for Tab 2\nAnother set of operations...");
+                typeWriter('containerTab2', 'Different content\nFor Tab 2', ['green', 'black'], typingSpeed);
+                break;
+            case 'Tab3':
+                // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
+                typeWriter('containerTab3', 'Another line\nYes, Tab 3', ['orange', 'purple'], typingSpeed);
+                break;
+            case 'Tab4':
+                // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
+                typeWriter('containerTab4', 'Another line\nYes, Tab 3', ['orange', 'purple'], typingSpeed);
+                break;
+            case 'Tab5':
+                // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
+                typeWriter('containerTab5', 'Another line\nYes, Tab 3', ['orange', 'purple'], typingSpeed);
+                break;
+        }
+    }
+
+    // Function to format text with line breaks
+    // function displayFormattedText(text) {
+    //     return text.replace(/\n/g, '<br>');
     // }
 
-    // // Optionally, to show the first tab by default on load
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     document.querySelector(".tablinks").click();
-    // });
+    // function displayFormattedText(containerId, text, colors) {
+    //         const container = document.getElementById(containerId);
+    //         container.innerHTML = ''; // Clear the previous content
+    //         const lines = text.split('\n');
+
+    //         lines.forEach((line, index) => {
+    //             const span = document.createElement('span');
+    //             span.style.color = colors[index % colors.length]; // Cycle through colors if not enough
+    //             span.innerHTML = line + '<br>'; // Add line break after each line
+    //             container.appendChild(span);
+    //         });
+    //     }
+
+    function displayFormattedText(containerId, text, colors) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; // Clear the previous content
+            const lines = text.split('\n');
+
+            lines.forEach((line, index) => {
+                const span = document.createElement('span');
+                span.style.color = colors[index % colors.length]; // Cycle through colors if not enough
+
+                // Check if the current color is black, and adjust the font size accordingly
+                if (span.style.color === 'black' || span.style.color === '#000' || span.style.color === '#000000') {
+                    span.style.fontSize = '12px'; // Change '24px' to the desired font size for black text
+                }
+
+                // Escape HTML-like content to prevent it from being interpreted as HTML tags
+                line = line.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                span.innerHTML = line + '<br>'; // Add line break after each line
+                container.appendChild(span);
+            });
+        }
+
+    // Example usage:
+    document.addEventListener("DOMContentLoaded", function () {
+        displayFormattedText(
+            'textBlockTab1', 
+            "Instruction:\n<Driver> task? <Commander> Hello. First we need to cut bread. <Commander> Next we need to toast a slice. <Driver> next. <Commander> All done. \n\nFull State:\n'DishSponge_0': {'label': 'DishSponge', 'holding': False, 'dirty': False, 'supported_by': ['Microwave']}\n'Pan_1': {'label': 'Pan', 'holding': False, 'dirty': True, 'supported_by': ['StoveBurner']}\n'Potato_2': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['CounterTop', 'Plate']}\n'PepperShaker_3': {'label': 'PepperShaker', 'holding': False, 'supported_by': ['Pot', 'DiningTable']}\n'SaltShaker_4': {'label': 'SaltShaker', 'holding': False, 'supported_by': ['Floor', 'GarbageCan']}\n'Lettuce_5': {'label': 'Lettuce', 'holding': False, 'sliced': False, 'supported_by': ['Cabinet']}\n'Egg_6': {'label': 'Egg', 'holding': False, 'supported_by': ['CounterTop']}\n'PaperTowelRoll_7': {'label': 'PaperTowelRoll', 'holding': False, 'supported_by': ['Sink']}\n'Spatula_8': {'label': 'Spatula', 'holding': False, 'dirty': False, 'supported_by': ['Drawer']}\n'Plate_9': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['Floor', 'GarbageCan']}\n'SoapBottle_10': {'label': 'SoapBottle', 'holding': False, 'supported_by': ['Sink']}\n'Tomato_11': {'label': 'Tomato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Sink']}\n'Cup_12': {'label': 'Cup', 'holding': False, 'dirty': False, 'filled': True, 'fillLiquid': 'water', 'supported_by': ['Cabinet']}\n'Kettle_13': {'label': 'Kettle', 'holding': False, 'dirty': False, 'filled': False, 'fillLiquid': None, 'supported_by': ['CounterTop']}\n'Bowl_14': {'label': 'Bowl', 'holding': False, 'dirty': False, 'filled': True, 'fillLiquid': 'water', 'supported_by': ['DiningTable']}\n'Fork_15': {'label': 'Fork', 'holding': False, 'dirty': False, 'supported_by': ['Fridge']}\n'Knife_16': {'label': 'Knife', 'holding': False, 'supported_by': ['Cabinet']}\n'Bread_17': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['DiningTable']}\n'Potato_18': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': True, 'supported_by': ['Microwave']}\n'DishSponge_19': {'label': 'DishSponge', 'holding': False, 'dirty': False, 'supported_by': ['DiningTable']}\n'Plate_20': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['Cabinet']}\n'SoapBottle_21': {'label': 'SoapBottle', 'holding': False, 'supported_by': ['CounterTop']}\n'PepperShaker_22': {'label': 'PepperShaker', 'holding': False, 'supported_by': ['Cabinet', 'Pan']}\n'DishSponge_23': {'label': 'DishSponge', 'holding': False, 'dirty': False, 'supported_by': ['Cabinet']}\n'Potato_24': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['CounterTop']}\n'Lettuce_25': {'label': 'Lettuce', 'holding': False, 'sliced': False, 'supported_by': ['Fridge']}\n'SoapBottle_26': {'label': 'SoapBottle', 'holding': False, 'supported_by': ['CounterTop']}\n'Tomato_27': {'label': 'Tomato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Cabinet']}\n'Bowl_28': {'label': 'Bowl', 'holding': False, 'dirty': False, 'filled': True, 'fillLiquid': 'water', 'supported_by': ['CounterTop']}\n'Knife_29': {'label': 'Knife', 'holding': False, 'supported_by': ['DiningTable']}\n'Potato_30': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Cabinet']}\n'DishSponge_31': {'label': 'DishSponge', 'holding': False, 'dirty': False, 'supported_by': ['CounterTop']}\n'Spatula_32': {'label': 'Spatula', 'holding': False, 'dirty': False, 'supported_by': ['Drawer']}\n'Egg_33': {'label': 'Egg', 'holding': False, 'supported_by': ['Microwave']}\n'Cup_34': {'label': 'Cup', 'holding': False, 'dirty': True, 'filled': False, 'fillLiquid': None, 'supported_by': ['CounterTop']}\n'SoapBottle_35': {'label': 'SoapBottle', 'holding': False, 'supported_by': ['DiningTable']}\n'Tomato_36': {'label': 'Tomato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['CounterTop']}\n'Lettuce_37': {'label': 'Lettuce', 'holding': False, 'sliced': False, 'supported_by': ['Fridge']}\n'Cabinet_38': {'label': 'Cabinet', 'open': False}\n'StoveBurner_39': {'label': 'StoveBurner'}\n'Drawer_40': {'label': 'Drawer', 'open': False}\n'Cabinet_41': {'label': 'Cabinet', 'open': False}\n'CounterTop_42': {'label': 'CounterTop'}\n'CounterTop_43': {'label': 'CounterTop'}\n'Drawer_44': {'label': 'Drawer', 'open': False}\n'StoveBurner_45': {'label': 'StoveBurner'}\n'Drawer_46': {'label': 'Drawer', 'open': False}\n'Drawer_47': {'label': 'Drawer', 'open': False}\n'StoveBurner_48': {'label': 'StoveBurner'}\n'Drawer_49': {'label': 'Drawer', 'open': False}\n'Cabinet_50': {'label': 'Cabinet', 'open': False}\n'Cabinet_51': {'label': 'Cabinet', 'open': False}\n'Cabinet_52': {'label': 'Cabinet', 'open': False}\n'Cabinet_53': {'label': 'Cabinet', 'open': False}\n'Cabinet_54': {'label': 'Cabinet', 'open': False}\n'StoveBurner_55': {'label': 'StoveBurner'}\n'Drawer_56': {'label': 'Drawer', 'open': False}\n'Cabinet_57': {'label': 'Cabinet', 'open': False}\n'CounterTop_58': {'label': 'CounterTop'}\n'Cabinet_59': {'label': 'Cabinet', 'open': False}\n'Cabinet_60': {'label': 'Cabinet', 'open': False}\n'Bread_61': {'label': 'Bread', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['CounterTop']}\n'Knife_62': {'label': 'Knife', 'holding': False, 'supported_by': ['Fridge']}\n'Toaster_63': {'label': 'Toaster', 'toggled': False}\n'Fork_64': {'label': 'Fork', 'holding': False, 'dirty': False, 'supported_by': ['Stool']}\n'Bowl_65': {'label': 'Bowl', 'holding': False, 'dirty': False, 'filled': True, 'fillLiquid': 'water', 'supported_by': ['CounterTop']}\n'Kettle_66': {'label': 'Kettle', 'holding': False, 'dirty': False, 'filled': False, 'fillLiquid': None, 'supported_by': ['CounterTop']}\n'Cup_67': {'label': 'Cup', 'holding': False, 'dirty': False, 'filled': True, 'fillLiquid': 'water', 'supported_by': ['DiningTable']}\n'Tomato_68': {'label': 'Tomato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Cabinet']}\n'SoapBottle_69': {'label': 'SoapBottle', 'holding': False, 'supported_by': ['CounterTop']}\n'Plate_70': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['CounterTop']}\n'LightSwitch_71': {'label': 'LightSwitch'}\n'Pot_72': {'label': 'Pot', 'holding': False, 'dirty': True, 'filled': False, 'fillLiquid': None, 'supported_by': ['DiningTable']}\n'Window_73': {'label': 'Window'}\n'Window_74': {'label': 'Window'}\n'Spatula_75': {'label': 'Spatula', 'holding': False, 'dirty': False, 'supported_by': ['Cabinet']}\n'PaperTowelRoll_76': {'label': 'PaperTowelRoll', 'holding': False, 'supported_by': ['CounterTop']}\n'Microwave_77': {'label': 'Microwave', 'toggled': True, 'open': False}\n'Egg_78': {'label': 'Egg', 'holding': False, 'supported_by': ['Sink']}\n'Lettuce_79': {'label': 'Lettuce', 'holding': False, 'sliced': False, 'supported_by': ['Cabinet']}\n'SinkBasin_80': {'label': 'SinkBasin'}\n'SaltShaker_81': {'label': 'SaltShaker', 'holding': False, 'supported_by': ['Sink']}\n'CoffeeMachine_82': {'label': 'CoffeeMachine', 'toggled': False}\n'PepperShaker_83': {'label': 'PepperShaker', 'holding': False, 'supported_by': ['DiningTable']}\n'Apple_84': {'label': 'Apple', 'holding': False, 'sliced': False, 'dirty': False, 'cooked': False, 'supported_by': ['Sink']}\n'Knife_85': {'label': 'Knife', 'holding': True, 'supported_by': ['CounterTop']}\n'StoveKnob_86': {'label': 'StoveKnob', 'toggled': True}\n'StoveKnob_87': {'label': 'StoveKnob', 'toggled': False}\n'StoveKnob_88': {'label': 'StoveKnob', 'toggled': True}\n'StoveKnob_89': {'label': 'StoveKnob', 'toggled': False}\n'Potato_90': {'label': 'Potato', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Fridge']}\n'Pan_91': {'label': 'Pan', 'holding': False, 'dirty': True, 'supported_by': ['Cabinet']}\n'GarbageCan_92': {'label': 'GarbageCan'}\n'DishSponge_93': {'label': 'DishSponge', 'holding': False, 'dirty': False, 'supported_by': ['CounterTop']}\n'Spoon_94': {'label': 'Spoon', 'holding': False, 'dirty': False, 'supported_by': ['DiningTable']}\n'Fridge_95': {'label': 'Fridge', 'open': False}\n'Mug_96': {'label': 'Mug', 'holding': False, 'dirty': True, 'filled': True, 'fillLiquid': 'water', 'supported_by': ['Cabinet']}\n'Faucet_97': {'label': 'Faucet', 'toggled': False}\n'Stool_98': {'label': 'Stool'}\n'DiningTable_99': {'label': 'DiningTable'}\n'BreadSliced_100': {'label': 'BreadSliced', 'holding': False, 'cooked': False, 'supported_by': ['CounterTop']}\n\nRaw Actions:\ntarget_knife = InteractionObject('Knife', object_instance = 'Knife')\ntarget_knife.go_to()\ntarget_knife.pickup()\ntarget_tvstand = InteractionObject('TVStand', object_instance = 'TVStand')\ntarget_tvstand.go_to()\ntarget_tvstand.slice()\ntarget_countertop = InteractionObject('CounterTop', object_instance = 'CounterTop')\ntarget_countertop.go_to()\ntarget_knife.place(target_countertop)\ntarget_potatosliced = InteractionObject('PotatoSliced', object_instance = 'PotatoSliced')\ntarget_potatosliced.pickup_and_place(target_countertop)\ntarget_breadsliced = InteractionObject('BreadSliced', object_instance = 'BreadSliced')\ntarget_breadsliced.pickup()\ntarget_countertop.go_to()\ntarget_breadsliced.place(target_countertop)\ntarget_cabinet = InteractionObject('Cabinet', object_instance = 'Cabinet')\ntarget_cabinet.go_to()\ntarget_cabinet.toggle_off()\ntarget_breadsliced.pickup_and_place(target_countertop)", 
+            ['grey', 'black', 'black', 'red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black']
+            );
+        displayFormattedText('textBlockTab2', "Different instructions for Tab 2\nAnother set of operations...", ['green', 'black']);
+        displayFormattedText('textBlockTab3', "More instructions for Tab 3\nAdditional details...", ['orange', 'purple']);
+        displayFormattedText('textBlockTab4', "Different instructions for Tab 2\nAnother set of operations...", ['green', 'black']);
+        displayFormattedText('textBlockTab5', "More instructions for Tab 3\nAdditional details...", ['orange', 'purple']);
+    });
+
+    // Optionally, to show the first tab by default on load
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".tablinks").click();
+    });
+
 </script>
 
 
