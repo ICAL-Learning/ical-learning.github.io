@@ -868,6 +868,55 @@
             color: white;
         }
 
+        .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        }
+
+        /* Tab content (optional: hide initially with display:none) */
+        .tabcontent_ego {
+            display: none;
+            padding: 16px;
+            border: 1px solid #ccc;
+            border-top: none;
+            animation: fadeIn 0.5s; /* Fading effect */
+        }
+
+        .tabcontent_ego {
+            display: none; /* Hide all tab content by default */
+            padding: 16px;
+            border: 1px solid #ccc;
+            border-top: none;
+            animation: fadeIn 0.5s; /* Fading effect */
+        }
+
+        /* Style the buttons inside the tab */
+        .tablinks_ego {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 17px;
+            width: 20%; /* Equal width tabs */
+        }
+
+        /* Change background color of tabs on hover */
+        .tablinks_ego:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Create an active/current "tab button" class */
+        .tablinks_ego.active {
+            background-color: #666;
+            color: white;
+        }
+
 
 
     </style>
@@ -967,12 +1016,30 @@
                 </div>
                 <div>
                 <p>We introduce a novel framework, In-Context Abstraction Learning (ICAL), aimed at automating the acquisition of
-                generalizable examples and knowledge for in-context agents. ICAL then processes noisy demonstrations in two phases: (1) the abstraction phase where a VLM
-                autonomously corrects errors and adds natural language comments, and (2) the
-                human-in-the-loop phase, where abstractions are guided by human feedback. Successful trajectories are stored in a repository to assist the agent in learning and
+                generalizable examples and knowledge for in-context agents. The core aim of ICAL is to abstract a set of noisy demonstrations into a set of in-context examples $E$ that, when utilized by
+                an in-context VLM, increase the likelihood of successful task execution in the new domain. This can be encapsulated as:</p> 
+
+                <p>
+                    \[
+                    \max_{E} \mathbb{E}[R | e, I, o_t, D]
+                    \]
+                </p>
+                
+                <p>ICAL then processes noisy demonstrations in two phases:</p>
+                <p>
+                (1) the abstraction phase where a VLM autonomously corrects errors and adds natural language comments:
+                \[
+                F_{abstract}: (\xi_{noisy}, I, \{e^1, \ldots, e^k\}) \rightarrow (\xi_{optimized}, L)
+                \]
+                (2) the human-in-the-loop phase, where abstractions are guided by human feedback: 
+                \[
+                \Xi_{update}(\xi_{optimized}, H(a_t, o_t), L, I, \{e^1, ..., e^k\}) \rightarrow \xi'_{optimized}, L'
+                \]
+                
+                Successful trajectories are stored in a repository to assist the agent in learning and
                 responding to new instructions and environments.</p>
 
-                We focus on the following types of abstractions:
+                ICAL learns effectively by focusing on the following types of abstractions:
                 <ul>
                     <li><strong>Task and Causal Abstractions:</strong> Essential principles and actions are identified to achieve goals,
                         explaining how elements interconnect through cause and effect.</li>
@@ -986,21 +1053,20 @@
                 </ul>
                 </div>
                 <br>
-                <div style="width: 100%;"><img
-                        src="images/Figure2_method.jpg"></div>
-                
-                <div class="w3-center" style="width: 100%;"><img
-                        style="width: 30%" src="images/white_space.jpg"></div>
-                
+                <!-- <div class="w3-center" style="width: 70%"><img src="images/Figure2_method.jpg"></div> -->
+                <div class="w3-center" style="width: 100%; margin-left: auto; margin-right: auto;">
+                    <img src="images/Figure2_method.jpg">
+                </div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
                 <hr>
                 <div class="w3-center">
                     <h2>Continual Learning</h2>
                 </div>
 
-                <p>ICAL shows <b>continual improvements in TEACh unseen success rate</b> with more examples learned. Our method benefits from even a small amount of examples learned.</p>
+                <p>ICAL shows <b>continual improvements in TEACh unseen success rate</b> with more examples learned. Our method benefits from even a small amount of examples learned. our method benefits from even a small amount of examples learned, with an improvement of an absolute 14.7% success rate over chain-of-thought prompting with just 10 examples learned.</p>
                 
                 <div class="w3-center">
-                <video width="50%" playsinline autoplay muted loop>
+                <video width="30%" playsinline autoplay muted loop>
                     <source src="images/output_video_plot (4).mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -1014,14 +1080,14 @@
                     </div>
                 </div> -->
                 
-                <div class="w3-center" style="width: 100%;"><img
+                <div class="center" style="width: 100%;"><img
                         style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
                 
                 <hr>
                 <div class="w3-center">
                     <h2>ICAL Examples</h2>
                 </div>
-                <p>Below we show examples of the raw trajectories obtained from human demonstrations, and the ICAL abstracted examples on the right. Click on a task tab to show before and after applying ICAL.</p>
+                <p>Below we show examples of the raw trajectories obtained from human demonstrations, and the ICAL abstracted examples on the right. Click on a task tab to show the example before and after applying ICAL.</p>
                 
                 <div class="w3-center" style="width: 50%;"><img style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
                 
@@ -1039,18 +1105,27 @@
                 </div>
 
                 <div id="Tab1" class="tabcontent">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/teach_images/interaction_video_baa4e99d8931aaa1_07e0.tfd_baa4e99d8931aaa1_07e0.png"
+                            class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
                     <div id="textBlockTab1" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img src="images/ICAL_arrow.jpg" class="nopadimg"></div>
                     <div id="containerTab1" style="width: 40%; float: left; height: 600px; overflow-y: auto;">Text for Tab 2</div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Images:</div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/teach_images/interaction_video_baa4e99d8931aaa1_07e0.tfd_baa4e99d8931aaa1_07e0.png" class="nopadimg"></div>
                 </div>
                 
                 <div id="Tab2" class="tabcontent">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/teach_images/interaction_video_f79c6594b742b28e_31a6.tfd_f79c6594b742b28e_31a6.png"
+                            class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
@@ -1058,13 +1133,15 @@
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
                             src="images/ICAL_arrow.jpg" class="nopadimg"></div>
                     <div id="containerTab2" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Images:</div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/teach_images/interaction_video_f79c6594b742b28e_31a6.tfd_f79c6594b742b28e_31a6.png"
-                            class="nopadimg"></div>
                 </div>
                 
                 <div id="Tab3" class="tabcontent">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/teach_images/interaction_video_250ea89c821ebbf2_2500.tfd_250ea89c821ebbf2_2500.png"
+                            class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
@@ -1072,13 +1149,15 @@
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
                             src="images/ICAL_arrow.jpg" class="nopadimg"></div>
                     <div id="containerTab3" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Images:</div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/teach_images/interaction_video_250ea89c821ebbf2_2500.tfd_250ea89c821ebbf2_2500.png"
-                            class="nopadimg"></div>
                 </div>
 
                 <div id="Tab4" class="tabcontent">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/teach_images/interaction_video_717112cc2f4e5c47_d55b.tfd_717112cc2f4e5c47_d55b.png"
+                            class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
@@ -1086,13 +1165,15 @@
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
                             src="images/ICAL_arrow.jpg" class="nopadimg"></div>
                     <div id="containerTab4" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Images:</div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/teach_images/interaction_video_717112cc2f4e5c47_d55b.tfd_717112cc2f4e5c47_d55b.png"
-                            class="nopadimg"></div>
                 </div>
 
                 <div id="Tab5" class="tabcontent">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/teach_images/interaction_video_f79c6594b742b28e_31a6.tfd_f79c6594b742b28e_31a6.png"
+                            class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b></div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted Example</b></div>
@@ -1100,10 +1181,7 @@
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
                             src="images/ICAL_arrow.jpg" class="nopadimg"></div>
                     <div id="containerTab5" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Images:</div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/teach_images/interaction_video_f79c6594b742b28e_31a6.tfd_f79c6594b742b28e_31a6.png"
-                            class="nopadimg"></div>
+                    
                 </div>
 
                 <br>
@@ -1117,7 +1195,7 @@
                         style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
                 
                 <div class="w3-center">
-                    <h3>Visual Web Arena</h3>
+                    <h3>Visual Web Navigation</h3>
                 </div>
                 <br>
                 
@@ -1130,16 +1208,30 @@
                 </div>
                 
                 <div id="Tab6" class="tabcontent_vwa">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 210px; padding-right: 10px;"><b>Webpage image:</b></div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <!-- <div style="width: 60%; float: left; padding-left: 10px; padding-right: 10px;"><img src="images/vwa_images/image_classifieds_172.png"
+                            class="nopadimg"></div> -->
+                    <div style="width: 70%; float: left; padding-left: 10px; padding-right: 10px; overflow-y: auto; max-height: 300px;">
+                        <img src="images/vwa_images/image_classifieds_172.png" class="nopadimg">
+                    </div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
                     </div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab6" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <div style="width: 20%; float: left; padding-top: 200px; padding-right: 10px;"><img
-                            style="padding-bottom: 30px;" src="images/ICAL_arrow.jpg" class="nopadimg">Saved Image:<img style="width: 100%" src="images/vwa_images/image_classifieds_172.png" class="nopadimg"></div>
+                    <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <!-- <div style="width: 20%; float: left; padding-top: 200px; padding-right: 10px;"><img
+                            style="padding-bottom: 30px;" src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_classifieds_172.png" class="nopadimg"></div> -->
                     <div id="containerTab6" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Image:</div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             style="width: 30%" src="images/vwa_images/image_classifieds_172.png"
                             class="nopadimg"></div> -->
@@ -1153,9 +1245,9 @@
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab7" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/ICAL_arrow.jpg" class="nopadimg">Saved Image:<img style="width: 100%" src="images/vwa_images/image_classifieds_40.png" class="nopadimg"></div>
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_classifieds_40.png" class="nopadimg"></div>
                     <div id="containerTab7" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Image:</div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             style="width: 30%" src="images/vwa_images/image_classifieds_40.png" class="nopadimg"></div> -->
                 </div>
@@ -1168,9 +1260,9 @@
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab8" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/ICAL_arrow.jpg" class="nopadimg">Saved Image:<img style="width: 100%" src="images/vwa_images/image_reddit_28_2.png" class="nopadimg"></div>
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_reddit_28_2.png" class="nopadimg"></div>
                     <div id="containerTab8" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Image:</div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             style="width: 30%" src="images/vwa_images/image_reddit_28_2.png" class="nopadimg"></div> -->
                 </div>
@@ -1183,9 +1275,9 @@
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab9" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/ICAL_arrow.jpg" class="nopadimg">Saved Image:<img style="width: 100%" src="images/vwa_images/image_reddit_70_2.png" class="nopadimg"></div>
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_reddit_70_2.png" class="nopadimg"></div>
                     <div id="containerTab9" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Image:</div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             style="width: 30%" src="images/vwa_images/image_reddit_70_2.png" class="nopadimg"></div> -->
                 </div>
@@ -1198,12 +1290,178 @@
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab10" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/ICAL_arrow.jpg" class="nopadimg">Saved Image:<img style="width: 100%" src="images/vwa_images/image_shopping_190_0.png" class="nopadimg"></div>
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_shopping_190_0.png" class="nopadimg"></div>
                     <div id="containerTab10" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
-                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;">Saved Image:</div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             style="width: 30%" src="images/vwa_images/image_shopping_190_0.png" class="nopadimg"></div> -->
                 </div>
+
+                <br>
+                <spacer type="horizontal" width="100" height="50"> </spacer>
+                <br>
+                <br>
+                <spacer type="horizontal" width="100" height="50"> </spacer>
+                <br>
+                
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                
+                <div class="w3-center">
+                    <h3>Ego4D Forecasting</h3>
+                </div>
+                <br>
+
+                <div class="tabs">
+                    <button class="tablinks_ego" onclick="openTab_EGO(event, 'Tab11')">Make Sauce</button>
+                    <button class="tablinks_ego" onclick="openTab_EGO(event, 'Tab12')">Clean Bathroom</button>
+                    <button class="tablinks_ego" onclick="openTab_EGO(event, 'Tab13')">Wash Car</button>
+                    <button class="tablinks_ego" onclick="openTab_EGO(event, 'Tab14')">Apply Cement</button>
+                    <button class="tablinks_ego" onclick="openTab_EGO(event, 'Tab15')">Sew Mask</button>
+                </div>
+                
+                <div id="Tab11" class="tabcontent_ego">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Video:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/images1.png"
+                            class="nopadimg"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
+                    </div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted
+                            Example (Single Time Step)</b></div>
+                    <div id="textBlockTab11" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab11" style="width: 40%; float: left; height: 600px; overflow-y: auto;">Text for Tab 2</div>
+                    <!-- <div id="textBlockTab11" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div> -->
+                    <!-- <div style="width: 20%; float: left; padding-top: 200px; padding-right: 10px;"><img style="padding-bottom: 30px;"
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Saved Image:</b><img style="width: 100%"
+                            src="images/vwa_images/image_classifieds_172.png" class="nopadimg"></div> -->
+                    <!-- <div id="containerTab11" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div> -->
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
+                                    <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                                            style="width: 30%" src="images/vwa_images/image_classifieds_172.png"
+                                            class="nopadimg"></div> -->
+                </div>
+                
+                <div id="Tab12" class="tabcontent_ego">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Video:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img src="images/images2.png"
+                            class="nopadimg"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
+                    </div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted
+                            Example (Single Time Step)</b></div>
+                    <div id="textBlockTab12" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab12" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
+                                    <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                                            style="width: 30%" src="images/vwa_images/image_classifieds_40.png" class="nopadimg"></div> -->
+                </div>
+                
+                <div id="Tab13" class="tabcontent_ego">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Video:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img src="images/images3.png"
+                            class="nopadimg"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
+                    </div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted
+                            Example (Single Time Step)</b></div>
+                    <div id="textBlockTab13" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab13" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
+                                    <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                                            style="width: 30%" src="images/vwa_images/image_reddit_28_2.png" class="nopadimg"></div> -->
+                </div>
+                
+                <div id="Tab14" class="tabcontent_ego">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Video:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img src="images/images4.png"
+                            class="nopadimg"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
+                    </div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted
+                            Example (Single Time Step)</b></div>
+                    <div id="textBlockTab14" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab14" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
+                                    <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                                            style="width: 30%" src="images/vwa_images/image_reddit_70_2.png" class="nopadimg"></div> -->
+                </div>
+                
+                <div id="Tab15" class="tabcontent_ego">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Video:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img src="images/images5.png"
+                            class="nopadimg"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
+                    </div>
+                    <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
+                    <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>ICAL Abstracted
+                            Example (Single Time Step)</b></div>
+                    <div id="textBlockTab15" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <div id="containerTab15" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
+                    <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
+                                    <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
+                                            style="width: 30%" src="images/vwa_images/image_shopping_190_0.png" class="nopadimg"></div> -->
+                </div>
+
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                
+                <hr>
+                <div class="w3-center">
+                    <h2>Results</h2>
+                </div>
+
+                <div class="w3-center">
+                    <h3>Household Instruction Following</h3>
+                </div>
+                <p>Below are results on the TEACh household instruction following validation unseen dataset. <b>ICAL examples significantly improves on the state-of-the-art by 12.6% in goal-condition success</b>, outperforming agents that use the raw visual demonstrations as in context examples without abstraction learning</p>
+                <div class="w3-center" style="width: 100%;"><img style="width: 80%" src="images/instruction_following_success.jpg"></div>
+                <br>
+                <div class="w3-center">
+                    <h4>Finetuning on ICAL examples complements retrieval</h4>
+                </div>
+                <p><b>The most notable advancement was achieved when fine-tuning was combined with retrieval-augmented generation</b>, achieving a
+                Success rate of 35.4% and a sub-task score of 55.9%. This demonstrate that consolidating the learned examples through
+                fine-tuning, particularly when integrated with retrieval processes through in-context learning, improves performance.</p>
+                <div class="w3-center" style="width: 100%;"><img style="width: 80%" src="images/finetuning_plots.jpg"></div>
+                <br>
+                <div class="w3-center">
+                    <h4>Ablations</h4>
+                </div>
+                <p>Our ablations reveal the importance of both the offline and human-in-the-loop abstraction making for performance.</p>
+                <div class="w3-center" style="width: 100%;"><img style="width: 50%" src="images/ablation_plots.jpg"></div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center">
+                    <h3>Autonomous Visual Web Agents</h3>
+                </div>
+                <p><b>ICAL outperforms the previous state-of-the-art GPT4V +
+                SoM (Koh et. Al., 2023) on the VisualWebArena benchmark</b> by an absolute 8.4% in average success rate. The baseline utilizes GPT4V with few-shot hand-designed examples and set of
+                marks image prompting.</p>
+                <div class="w3-center" style="width: 100%;"><img style="width: 50%" src="images/VWA_plots.jpg"></div>
 
                 <br>
                 <spacer type="horizontal" width="100" height="50"> </spacer>
@@ -1252,7 +1510,7 @@
             let currentLine = 0;
 
             function typeLine(line) {
-                if (line >= lines.length) return;
+               if (line >= lines.length) return;
                 const span = document.createElement('span');
                 span.style.color = colors[line % colors.length]; // Cycle through colors if not enough
 
@@ -1276,6 +1534,32 @@
                 }
                 typeWord();
             }
+
+            // function typeLine(line) {
+            //     if (line >= lines.length) return;
+            //     const span = document.createElement('span');
+            //     span.style.color = colors[line % colors.length];
+
+            //     if (span.style.color === 'black' || span.style.color === '#000' || span.style.color === '#000000') {
+            //         span.style.fontSize = '12px';
+            //     }
+
+            //     container.appendChild(span);
+
+            //     let words = lines[line].match(/(?:\s*\S+)+/g) || []; // Ensure words is an array even if match finds nothing
+            //     let i = 0;
+            //     function typeWord() {
+            //         if (i < words.length) {
+            //             span.appendChild(document.createTextNode(words[i++] + ' '));
+            //             setTimeout(typeWord, typingSpeed);
+            //         } else {
+            //             container.appendChild(document.createElement('br'));
+            //             typeLine(line + 1);
+            //         }
+            //     }
+            //     typeWord();
+            // }
+
 
             typeLine(0);
         }
@@ -1309,7 +1593,7 @@
                 // document.getElementById('textBlockTab2').innerHTML = displayFormattedText("Different instructions for Tab 2\nAnother set of operations...");
                 typeWriter(
                     'containerTab2', 
-                    "Instruction:\n<Driver> hello how can I help? <Commander> Please make coffee. <Driver> sure, where can I find some cups please? <Commander> you can find a mug close to the coffee machine. <Driver> I can't turn on the coffee machine. <Commander> that was everything, thanks. \n\nAbstracted State:\n'Mug_1': {'label': 'Mug', 'holding': False, 'dirty': False, 'filled': True, 'fillLiquid': 'water', 'supported_by': ['Floor', 'GarbageCan']}\n'CounterTop_18': {'label': 'CounterTop'}\n'Fridge_37': {'label': 'Fridge', 'open': False}\n'Microwave_38': {'label': 'Microwave', 'toggled': True, 'open': False}\n'SinkBasin_59': {'label': 'SinkBasin'}\n'CoffeeMachine_61': {'label': 'CoffeeMachine', 'toggled': True}\n'Mug_68': {'label': 'Mug', 'holding': False, 'dirty': False, 'filled': False, 'fillLiquid': None, 'supported_by': ['CounterTop']}\n'Faucet_69': {'label': 'Faucet', 'toggled': True}\n\nTask Decomposition & Subgoals:\nSummary: The script prepares coffee in a clean mug found near the coffee machine and places the filled mug on a suitable receptacle.\nPlan:\n1. Identify the mug near the coffee machine.\n2. Verify that the mug is clean and empty.\n3. Use the coffee machine to make coffee in the mug.\n4. Place the mug with coffee on a suitable receptacle, such as the countertop.\n\nAbstraction Comments:\n1. The mug is identified near the coffee machine and picked up to ensure we are using the correct object as per the Commander's instructions.\n2. The mug's cleanliness and emptiness are checked, and if necessary, it is cleaned in the sink basin to meet the requirement of using a clean and empty mug.\n3. The coffee machine is used to prepare coffee, which is the main task assigned by the Commander.\n4. The mug is placed on the countertop after coffee preparation, completing the task as requested.\n\nOptimized Actions & State Changes:\n# Define InteractionObject instances for the mug near the coffee machine, the coffee machine, and the countertop\nmug_near_coffeemachine = InteractionObject('Mug', object_instance='Mug_68')  # Mug is near the coffee machine\ncoffee_machine = InteractionObject('CoffeeMachine', object_instance='CoffeeMachine_61')  # Coffee machine to prepare coffee\ncountertop = InteractionObject('CounterTop', object_instance='CounterTop_18')  # Define a countertop instance to place the mug on\n\n# Go to the mug near the coffee machine and pick it up\nmug_near_coffeemachine.go_to()\nmug_near_coffeemachine.pickup()\n\n# Check if the mug is clean and empty; if not, clean it\nif mug_near_coffeemachine.check_attribute('dirty', True) or mug_near_coffeemachine.check_attribute('filled', True):\n    # If the mug is not clean or is filled, we need to clean it\n    sink_basin = InteractionObject('SinkBasin', object_instance='SinkBasin_59')  # Sink basin for cleaning the mug if necessary\n    faucet = InteractionObject('Faucet', object_instance='Faucet_69')  # Faucet to use water for cleaning\n    \n    # If the faucet is on, turn it off before cleaning\n    if faucet.check_attribute('toggled', True):\n        faucet.toggle_off()\n    \n    # Clean the mug\n    sink_basin.go_to()\n    mug_near_coffeemachine.place(sink_basin)\n    faucet.toggle_on()  # Rinse the mug with water\n    faucet.toggle_off()  # Turn off the faucet after rinsing\n    mug_near_coffeemachine.change_state('dirty', False)  # Update the mug's state to clean\n    mug_near_coffeemachine.change_state('filled', False)  # Update the mug's state to empty\n\n# Use the coffee machine to prepare coffee in the clean mug\ncoffee_machine.go_to()\nmug_near_coffeemachine.pickup()\nmug_near_coffeemachine.place(coffee_machine)\n# Wait for coffee to be prepared (this step is abstracted in the script)\nmug_near_coffeemachine.change_state('filled', True)  # Update the mug's state to filled with coffee\nmug_near_coffeemachine.change_state('fillLiquid', 'coffee')  # Update the liquid in the mug to coffee\n\n# Place the mug with coffee on the countertop\nmug_near_coffeemachine.pickup()\nmug_near_coffeemachine.place(countertop)  # Correctly place the mug on the countertop", 
+                    "Instruction:\n<Driver> hello how can I help? <Commander> Please make coffee. <Driver> sure, where can I find some cups please? <Commander> you can find a mug close to the coffee machine. <Driver> I can't turn on the coffee machine. <Commander> that was everything, thanks. \n\nAbstracted State:\n'Mug_1': {'label': 'Mug', 'holding': False, 'dirty': False, 'filled': True, 'fillLiquid': 'water', 'supported_by': ['Floor', 'GarbageCan']}\n'CounterTop_18': {'label': 'CounterTop'}\n'Fridge_37': {'label': 'Fridge', 'open': False}\n'Microwave_38': {'label': 'Microwave', 'toggled': True, 'open': False}\n'SinkBasin_59': {'label': 'SinkBasin'}\n'CoffeeMachine_61': {'label': 'CoffeeMachine', 'toggled': True}\n'Mug_68': {'label': 'Mug', 'holding': False, 'dirty': False, 'filled': False, 'fillLiquid': None, 'supported_by': ['CounterTop']}\n'Faucet_69': {'label': 'Faucet', 'toggled': True}\n\nTask Decomposition & Subgoals:\nSummary: The script prepares coffee in a clean mug found near the coffee machine and places the filled mug on a suitable receptacle.\nPlan:\n1. Identify the mug near the coffee machine.\n2. Verify that the mug is clean and empty.\n3. Use the coffee machine to make coffee in the mug.\n4. Place the mug with coffee on a suitable receptacle, such as the countertop.\n\nAbstraction Comments:\n1. The mug is identified near the coffee machine and picked up to ensure we are using the correct object as per the Commander's instructions.\n2. The mug's cleanliness and emptiness are checked, and if necessary, it is cleaned in the sink basin to meet the requirement of using a clean and empty mug.\n3. The coffee machine is used to prepare coffee, which is the main task assigned by the Commander.\n4. The mug is placed on the countertop after coffee preparation, completing the task as requested.\n\nOptimized Actions & State Changes:\n# Define InteractionObject instances for the mug near the coffee machine, the coffee machine, and the countertop\nmug_near_coffeemachine = InteractionObject('Mug', object_instance='Mug_68')  # Mug is near the coffee machine\ncoffee_machine = InteractionObject('CoffeeMachine', object_instance='CoffeeMachine_61')  # Coffee machine to prepare coffee\ncountertop = InteractionObject('CounterTop', object_instance='CounterTop_18')  # Define a countertop instance to place the mug on\n\n# Go to the mug near the coffee machine and pick it up\nmug_near_coffeemachine.go_to()\nmug_near_coffeemachine.pickup()\n\n# Check if the mug is clean and empty; if not, clean it\nif mug_near_coffeemachine.check_attribute('dirty', True) or mug_near_coffeemachine.check_attribute('filled', True):\n    ‎ ‎ ‎ ‎ # If the mug is not clean or is filled, we need to clean it\n    ‎ ‎ ‎ ‎ sink_basin = InteractionObject('SinkBasin', object_instance='SinkBasin_59')  # Sink basin for cleaning the mug if necessary\n    ‎ ‎ ‎ ‎ faucet = InteractionObject('Faucet', object_instance='Faucet_69')  # Faucet to use water for cleaning\n    ‎ ‎ ‎ ‎ \n    ‎ ‎ ‎ ‎ # If the faucet is on, turn it off before cleaning\n    ‎ ‎ ‎ ‎ if faucet.check_attribute('toggled', True):\n    ‎ ‎ ‎ ‎     faucet.toggle_off()\n    ‎ ‎ ‎ ‎ \n    ‎ ‎ ‎ ‎ # Clean the mug\n    ‎ ‎ ‎ ‎ sink_basin.go_to()\n    ‎ ‎ ‎ ‎ mug_near_coffeemachine.place(sink_basin)\n    ‎ ‎ ‎ ‎ faucet.toggle_on()  # Rinse the mug with water\n    ‎ ‎ ‎ ‎ faucet.toggle_off()  # Turn off the faucet after rinsing\n    ‎ ‎ ‎ ‎ mug_near_coffeemachine.change_state('dirty', False)  # Update the mug's state to clean\n    ‎ ‎ ‎ ‎ mug_near_coffeemachine.change_state('filled', False)  # Update the mug's state to empty\n\n# Use the coffee machine to prepare coffee in the clean mug\ncoffee_machine.go_to()\nmug_near_coffeemachine.pickup()\nmug_near_coffeemachine.place(coffee_machine)\n# Wait for coffee to be prepared (this step is abstracted in the script)\nmug_near_coffeemachine.change_state('filled', True)  # Update the mug's state to filled with coffee\nmug_near_coffeemachine.change_state('fillLiquid', 'coffee')  # Update the liquid in the mug to coffee\n\n# Place the mug with coffee on the countertop\nmug_near_coffeemachine.pickup()\nmug_near_coffeemachine.place(countertop)  # Correctly place the mug on the countertop", 
                     ['grey', 'black', 'black', 'red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'], 
                     typingSpeed
                     );
@@ -1318,7 +1602,7 @@
                 // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
                 typeWriter(
                     'containerTab3', 
-                    "Instruction:\n<Driver> hi, task? <Commander> make sandwich. <Commander> make 2 slices of toast. <Commander> slice tomato and put on a clean plate. <Driver> next. <Driver> next. <Commander> nice job. thanks you. <Driver> 2 bread and 1 tomato. \n\nAbstracted State:\n'Plate_2': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['Shelf']}\n'Bread_4': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Floor', 'Shelf']}\n'Bread_9': {'label': 'Bread', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['DiningTable']}\n'CounterTop_32': {'label': 'CounterTop'}\n'Toaster_39': {'label': 'Toaster', 'toggled': False}\n'Bread_45': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Shelf']}\n'Fridge_47': {'label': 'Fridge', 'open': False}\n'Plate_52': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['DiningTable']}\n'SinkBasin_55': {'label': 'SinkBasin'}\n'Knife_61': {'label': 'Knife', 'holding': True, 'supported_by': ['CounterTop']}\n'Tomato_66': {'label': 'Tomato', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['Stool']}\n'Knife_70': {'label': 'Knife', 'holding': False, 'supported_by': ['Cabinet']}\n'DiningTable_72': {'label': 'DiningTable'}\n'Faucet_78': {'label': 'Faucet', 'toggled': False}\n'Stool_79': {'label': 'Stool'}\n'Shelf_80': {'label': 'Shelf'}\n'BreadSliced_81': {'label': 'BreadSliced', 'holding': False, 'cooked': True, 'supported_by': ['CounterTop']}\n'BreadSliced_82': {'label': 'BreadSliced', 'holding': False, 'cooked': True, 'supported_by': ['CounterTop']}\n'TomatoSliced_83': {'label': 'TomatoSliced', 'holding': False, 'cooked': False, 'supported_by': ['CounterTop']}\n\nTask Decomposition & Subgoals:\nSummary: The revised script will slice bread, toast two slices, slice a tomato, and assemble the sandwich components on a clean plate.\nPlan:\n1. Retrieve a knife from the countertop.\n2. Slice the bread and create instances for the sliced bread.\n3. Toast two slices of bread in the toaster.\n4. Check if the plate on the dining table is clean; if not, clean it.\n5. Retrieve a tomato from the stool.\n6. Slice the tomato and create instances for the sliced tomato.\n7. Assemble the toasted bread and tomato slices on the clean plate.\n\nAbstraction Comments:\n1. The knife is used to slice the bread and tomato, which are essential components of the sandwich.\n2. The toaster is used to toast the bread slices, which is a key step in making a sandwich with toast.\n3. The plate's cleanliness is ensured before assembling the sandwich to maintain hygiene.\n4.The toasted bread and tomato slices are placed on the plate to complete the sandwich assembly.\n\nOptimized Actions & State Changes: \n# Define InteractionObject instances for the bread, knife, toaster, tomato, and plate\nbread = InteractionObject('Bread', object_instance = 'Bread_9')  # Bread is on the dining table\nknife = InteractionObject('Knife', object_instance = 'Knife_61')  # Knife is on the countertop\ntoaster = InteractionObject('Toaster', object_instance = 'Toaster_39')  # Toaster for toasting bread\ntomato = InteractionObject('Tomato', object_instance = 'Tomato_66')  # Tomato is on the stool\nplate = InteractionObject('Plate', object_instance = 'Plate_52')  # Plate is on the dining table\nsink = InteractionObject('SinkBasin', object_instance = 'SinkBasin_55')  # Sink for cleaning the plate\nfaucet = InteractionObject('Faucet', object_instance = 'Faucet_78')  # Faucet for cleaning the plate\n\n# Slice the bread\nknife.go_to() \nknife.pickup() \nbread.go_to() \nbread.slice() \nbread_sliced_1 = InteractionObject('BreadSliced', parent_object = bread.object_instance)  # Initialize new sliced object from sliced parent\nbread_sliced_2 = InteractionObject('BreadSliced', parent_object = bread.object_instance)  # Initialize new sliced object from sliced parent\n\n# Toast two slices of bread\ntoaster.go_to() \nbread_sliced_1.pickup() \nbread_sliced_1.place(toaster) \ntoaster.toggle_on()  # Start toasting the first bread slice\n# Wait for the bread to toast(this step is abstracted in the script) \ntoaster.toggle_off()  # Stop toasting after it's done\nbread_sliced_1.change_state('cooked', True)  # Update the bread slice's state to toasted\nbread_sliced_1.pickup()  # Remove the toasted bread slice from the toaster\n\nbread_sliced_2.pickup() \nbread_sliced_2.place(toaster) \ntoaster.toggle_on()  # Start toasting the second bread slice\n# Wait for the bread to toast(this step is abstracted in the script) \ntoaster.toggle_off()  # Stop toasting after it's done\nbread_sliced_2.change_state('cooked', True)  # Update the bread slice's state to toasted\nbread_sliced_2.pickup()  # Remove the toasted bread slice from the toaster\n\n# Check if the plate is clean; if not, clean it\nplate.go_to() \nif plate.check_attribute('dirty', True): \n    plate.pickup() \n    sink.go_to() \n    plate.place(sink) \n    faucet.go_to() \n    faucet.toggle_on()  # Turn on the faucet to clean the plate\n    faucet.toggle_off()  # Turn off the faucet after cleaning\n    plate.pickup()  # Pick up the clean plate\n    plate.change_state('dirty', False)  # Update the plate's state to clean\n\n# Slice the tomato\ntomato.go_to()\ntomato.pickup()\ntomato.slice()\ntomato_sliced = InteractionObject('TomatoSliced', parent_object=tomato.object_instance)  # Initialize new sliced object from sliced parent\n\n# Assemble the sandwich components on the plate\nplate.go_to()\nbread_sliced_1.place(plate)\nbread_sliced_2.place(plate)\ntomato_sliced.pickup()\ntomato_sliced.place(plate)", 
+                    "Instruction:\n<Driver> hi, task? <Commander> make sandwich. <Commander> make 2 slices of toast. <Commander> slice tomato and put on a clean plate. <Driver> next. <Driver> next. <Commander> nice job. thanks you. <Driver> 2 bread and 1 tomato. \n\nAbstracted State:\n'Plate_2': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['Shelf']}\n'Bread_4': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Floor', 'Shelf']}\n'Bread_9': {'label': 'Bread', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['DiningTable']}\n'CounterTop_32': {'label': 'CounterTop'}\n'Toaster_39': {'label': 'Toaster', 'toggled': False}\n'Bread_45': {'label': 'Bread', 'holding': False, 'sliced': False, 'cooked': False, 'supported_by': ['Shelf']}\n'Fridge_47': {'label': 'Fridge', 'open': False}\n'Plate_52': {'label': 'Plate', 'holding': False, 'dirty': False, 'supported_by': ['DiningTable']}\n'SinkBasin_55': {'label': 'SinkBasin'}\n'Knife_61': {'label': 'Knife', 'holding': True, 'supported_by': ['CounterTop']}\n'Tomato_66': {'label': 'Tomato', 'holding': False, 'sliced': True, 'cooked': False, 'supported_by': ['Stool']}\n'Knife_70': {'label': 'Knife', 'holding': False, 'supported_by': ['Cabinet']}\n'DiningTable_72': {'label': 'DiningTable'}\n'Faucet_78': {'label': 'Faucet', 'toggled': False}\n'Stool_79': {'label': 'Stool'}\n'Shelf_80': {'label': 'Shelf'}\n'BreadSliced_81': {'label': 'BreadSliced', 'holding': False, 'cooked': True, 'supported_by': ['CounterTop']}\n'BreadSliced_82': {'label': 'BreadSliced', 'holding': False, 'cooked': True, 'supported_by': ['CounterTop']}\n'TomatoSliced_83': {'label': 'TomatoSliced', 'holding': False, 'cooked': False, 'supported_by': ['CounterTop']}\n\nTask Decomposition & Subgoals:\nSummary: The revised script will slice bread, toast two slices, slice a tomato, and assemble the sandwich components on a clean plate.\nPlan:\n1. Retrieve a knife from the countertop.\n2. Slice the bread and create instances for the sliced bread.\n3. Toast two slices of bread in the toaster.\n4. Check if the plate on the dining table is clean; if not, clean it.\n5. Retrieve a tomato from the stool.\n6. Slice the tomato and create instances for the sliced tomato.\n7. Assemble the toasted bread and tomato slices on the clean plate.\n\nAbstraction Comments:\n1. The knife is used to slice the bread and tomato, which are essential components of the sandwich.\n2. The toaster is used to toast the bread slices, which is a key step in making a sandwich with toast.\n3. The plate's cleanliness is ensured before assembling the sandwich to maintain hygiene.\n4.The toasted bread and tomato slices are placed on the plate to complete the sandwich assembly.\n\nOptimized Actions & State Changes: \n# Define InteractionObject instances for the bread, knife, toaster, tomato, and plate\nbread = InteractionObject('Bread', object_instance = 'Bread_9')  # Bread is on the dining table\nknife = InteractionObject('Knife', object_instance = 'Knife_61')  # Knife is on the countertop\ntoaster = InteractionObject('Toaster', object_instance = 'Toaster_39')  # Toaster for toasting bread\ntomato = InteractionObject('Tomato', object_instance = 'Tomato_66')  # Tomato is on the stool\nplate = InteractionObject('Plate', object_instance = 'Plate_52')  # Plate is on the dining table\nsink = InteractionObject('SinkBasin', object_instance = 'SinkBasin_55')  # Sink for cleaning the plate\nfaucet = InteractionObject('Faucet', object_instance = 'Faucet_78')  # Faucet for cleaning the plate\n\n# Slice the bread\nknife.go_to() \nknife.pickup() \nbread.go_to() \nbread.slice() \nbread_sliced_1 = InteractionObject('BreadSliced', parent_object = bread.object_instance)  # Initialize new sliced object from sliced parent\nbread_sliced_2 = InteractionObject('BreadSliced', parent_object = bread.object_instance)  # Initialize new sliced object from sliced parent\n\n# Toast two slices of bread\ntoaster.go_to() \nbread_sliced_1.pickup() \nbread_sliced_1.place(toaster) \ntoaster.toggle_on()  # Start toasting the first bread slice\n# Wait for the bread to toast(this step is abstracted in the script) \ntoaster.toggle_off()  # Stop toasting after it's done\nbread_sliced_1.change_state('cooked', True)  # Update the bread slice's state to toasted\nbread_sliced_1.pickup()  # Remove the toasted bread slice from the toaster\n\nbread_sliced_2.pickup() \nbread_sliced_2.place(toaster) \ntoaster.toggle_on()  # Start toasting the second bread slice\n# Wait for the bread to toast(this step is abstracted in the script) \ntoaster.toggle_off()  # Stop toasting after it's done\nbread_sliced_2.change_state('cooked', True)  # Update the bread slice's state to toasted\nbread_sliced_2.pickup()  # Remove the toasted bread slice from the toaster\n\n# Check if the plate is clean; if not, clean it\nplate.go_to() \nif plate.check_attribute('dirty', True): \n    ‎ ‎ ‎ ‎ plate.pickup() \n    ‎ ‎ ‎ ‎ sink.go_to() \n    ‎ ‎ ‎ ‎ plate.place(sink) \n    ‎ ‎ ‎ ‎ faucet.go_to() \n    ‎ ‎ ‎ ‎ faucet.toggle_on()  # Turn on the faucet to clean the plate\n    ‎ ‎ ‎ ‎ faucet.toggle_off()  # Turn off the faucet after cleaning\n    ‎ ‎ ‎ ‎ plate.pickup()  # Pick up the clean plate\n    ‎ ‎ ‎ ‎ plate.change_state('dirty', False)  # Update the plate's state to clean\n\n# Slice the tomato\ntomato.go_to()\ntomato.pickup()\ntomato.slice()\ntomato_sliced = InteractionObject('TomatoSliced', parent_object=tomato.object_instance)  # Initialize new sliced object from sliced parent\n\n# Assemble the sandwich components on the plate\nplate.go_to()\nbread_sliced_1.place(plate)\nbread_sliced_2.place(plate)\ntomato_sliced.pickup()\ntomato_sliced.place(plate)", 
                     ['grey', 'black', 'black', 'red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'], 
                     typingSpeed
                     );
@@ -1408,6 +1692,70 @@
             }
         }
 
+    function openTab_EGO(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent_ego");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks_ego");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+
+            // Define texts, colors, and speed for each tab
+            const typingSpeed = 15; // Same speed for all tabs for simplicity
+            switch (tabName) {
+                case 'Tab11':
+                    // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
+                    typeWriter(
+                        'containerTab11',
+                        "Abstracted State:\nID [11] Bottle of sauce\nID [4] Pot with food\nID [5] Left hand of user\nID [7] Right hand of user reaching for the bottle\nID [17] Wooden spoon in the pot\nID [25] Lid of the bottle\n\nTask Decomposition & Subgoals:\nSummary: The user in this video is preparing to use a bottle of sauce while cooking.\nPlan:\nThe user is reaching for a bottle of sauce (ID 11) with their right hand (ID 7), indicating they are about to use it in their cooking process. The presence of a pot with food (ID 4) and a wooden spoon (ID 17) suggests that the user will be adding sauce to the food and mixing it.\n\nAbstraction Comments:\n1. The user's focus on the bottle suggests that its contents are needed for the next step in the cooking process.\n2. The proximity of the bottle to the pot implies that the sauce will be added directly to the food being cooked.\n3. The presence of the wooden spoon within the pot indicates that after adding the sauce, the user will likely stir the mixture.\n4. The sequence of actions suggests a cooking task where ingredients are sequentially added and mixed.\n5. The user's body language, with one hand on the pot and the other reaching for the bottle, suggests a multitasking cooking scenario.\n\nPredicted State Change:\nThe bottle will go from closed to open, and its contents will be poured into the pot. The lid (ID 25) will be removed and placed aside. The spoon (ID 17) will be used to mix the food in the pot, changing the consistency and appearance of the food.\n\nOptimized Actions:\n1. hold_(support,_grip,_grasp) bottle_(bottle,_flask)\n2. open bottle_(bottle,_flask)\n3. put_(place,_leave,_drop) bottle_(bottle,_flask)\n4. put_(place,_leave,_drop) lid_(cap,_cover,_lid)\n5. take_(pick,_grab,_get) spoon_(spoon,_spoonful)\n6. mix food\n7. close food\n8. take_(pick,_grab,_get) bottle_(bottle,_flask)\n9. open bottle_(bottle,_flask)\n10. pour sauce\n11. take_(pick,_grab,_get) spoon_(spoon,_spoonful)\n12. put_(place,_leave,_drop) spoon_(spoon,_spoonful)\n13. take_(pick,_grab,_get) soil_(dirt,_mud,_soil)\n14. adjust_(regulate,_increase/reduce,_change) bottle_(bottle,_flask)\n15. hold_(support,_grip,_grasp) spoon_(spoon,_spoonful)\n16. mix food\n17. put_(place,_leave,_drop) spoon_(spoon,_spoonful)\n18. take_(pick,_grab,_get) bottle_(bottle,_flask)\n19. hold_(support,_grip,_grasp) bottle_(bottle,_flask)\n20. open bottle_(bottle,_flask)",
+                        ['red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'black', 'green', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'],
+                        typingSpeed
+                    );
+                    break;
+                case 'Tab12':
+                    // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
+                    typeWriter(
+                        'containerTab12',
+                        "Abstracted State:\nID [7] Napkin being stretched\nID [4] Right hand with glove\nID [6] Left hand with glove\nID [1] Toilet\nID [2] Toilet lid\n\nTask Decomposition & Subgoals:\nSummary: The user in this video is preparing to clean by stretching a napkin while wearing gloves.\nPlan:\nThe video sequence provided shows the individual stretching a napkin (ID 7) with both hands (IDs 4 & 6). The individual is likely preparing to clean a surface, possibly the toilet (ID 1) or the lid (ID 2), as indicated by the future actions.\n\nAbstraction Comments:\n1. The user is wearing gloves, which suggests that they are preparing for a cleaning task where they might come into contact with chemicals or dirt.\n2. The napkin is the focus of the current action, indicating it will be used shortly for wiping or cleaning.\n3. The proximity of the toilet suggests that it might be the object to be cleaned.\n4. The presence of a lid and the future action of opening it suggest that the user will clean inside the toilet as well.\n5. The sequence of actions involving the napkin, from stretching to wiping to disposing, indicates a complete cleaning cycle for a single-use item.\n\nPredicted State Change:\nThe napkin goes from being folded to stretched out. After the video, the napkin will be used to wipe a surface and then disposed of. The lid of the toilet will be opened and closed. The user's hands will likely change from being gloved to ungloved. Cleaning supplies such as a brush and detergent may be taken from and returned to their storage places.\n\nOptimized Actions:\n1. wipe lid_(cap,_cover,_lid)\n2. open lid_(cap,_cover,_lid)\n3. throw_(toss,_dump,_dispose) napkin_(handkerchief,_napkin,_serviette,_tissue,_wipe)\n4. take_(pick,_grab,_get) napkin_(handkerchief,_napkin,_serviette,_tissue,_wipe)\n5. open lid_(cap,_cover,_lid)\n6. put_(place,_leave,_drop) napkin_(handkerchief,_napkin,_serviette,_tissue,_wipe)\n7. take_(pick,_grab,_get) brush\n8. clean_(sweep,_scrub,_mop,_dust) toilet\n9. put_(place,_leave,_drop) brush\n10. hold_(support,_grip,_grasp) handle\n11. turn_on_(switch_on,_start,_light) switch_(knob,_switch)\n12. remove glove\n13. put_(place,_leave,_drop) glove\n14. take_(pick,_grab,_get) plate_(dish,_plate,_platter,_saucer)\n15. take_(pick,_grab,_get) detergent\n16. put_(place,_leave,_drop) detergent\n17. put_(place,_leave,_drop) detergent\n18. turn_on_(switch_on,_start,_light) faucet_(faucet,_tap)\n19. open drawer\n20. close drawer",
+                        ['red', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'black', 'green', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'],
+                        typingSpeed
+                    );
+                    break;
+                case 'Tab13':
+                    // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
+                    typeWriter(
+                        'containerTab13',
+                        "Abstracted State:\nID [1] Sponge being used for washing\nID [2, 3] User's hands dipping the sponge\nID [5] Bucket containing soapy water\nID [4] Hose likely used for rinsing\n\nTask Decomposition & Subgoals:\nSummary: The user in this video is preparing to wash a car by dipping a sponge into soapy water.\nPlan:\nThe video sequence provided shows the individual dipping a sponge (ID 1) into a bucket of soapy water (ID 5) using their hands (IDs 2 & 3). This action is typically followed by washing a car, which involves scrubbing the car's surface with the sponge, rinsing with water, and possibly adjusting the spray settings for optimal cleaning.\n\nAbstraction Comments:\n1. The presence of a sponge and soapy water indicates the task of cleaning, most likely a car given the context.\n2. The user's hands are actively involved in the task, suggesting that the actions will be manual and involve manipulation of cleaning tools.\n3. The hose in the periphery suggests that there will be a rinsing step following the scrubbing with the sponge.\n4. Adjusting the spray settings on the hose or nozzle is a common step in car washing to control the water flow for different cleaning stages.\n\nPredicted State Change:\nThe sponge goes from dry to wet as it is dipped into the soapy water. After the video, the car will go from dirty to clean as it is washed. The sponge will be squeezed, releasing soapy water, and then reapplied to the car's surface. The hose may be turned on and off, changing from a resting state to an active state as water is sprayed.\n\nOptimized Actions:\n1. squeeze sponge_(scrubber,_sponge)\n2. wash car_(car,_vehicle)\n3. wash car_(car,_vehicle)\n4. wash car_(car,_vehicle)\n5. put_(place,_leave,_drop) sponge_(scrubber,_sponge)\n6. take_(pick,_grab,_get) spray_(spray,_sprayer)\n7. spray water\n8. touch water\n9. adjust_(regulate,_increase/reduce,_change) spray_(spray,_sprayer)\n10. spray spray_(spray,_sprayer)\n11. spray car_(car,_vehicle)\n12. spray car_(car,_vehicle)\n13. put_(place,_leave,_drop) spray_(spray,_sprayer)\n14. turn_(spin,_rotate,_flip,_turn_over) faucet_(faucet,_tap)\n15. turn_(spin,_rotate,_flip,_turn_over) switch_(knob,_switch)\n16. turn_(spin,_rotate,_flip,_turn_over) faucet_(faucet,_tap)\n17. turn_(spin,_rotate,_flip,_turn_over) faucet_(faucet,_tap)\n18. turn_(spin,_rotate,_flip,_turn_over) faucet_(faucet,_tap)\n19. take_(pick,_grab,_get) spray_(spray,_sprayer)\n20. hold_(support,_grip,_grasp) spray_(spray,_sprayer)",
+                        ['red', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'green', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'],
+                        typingSpeed
+                    );
+                    break;
+                case 'Tab14':
+                    // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
+                    typeWriter(
+                        'containerTab14',
+                        "Abstracted State:\nID [7] Trowel being used to apply cement\nID [22] Right hand of user applying cement\nID [4] Left hand of user supporting trowel\nID [1] Surface where cement is being applied\nID [2] Cement mixture\n\nTask Decomposition & Subgoals:\nSummary: The user in this video is applying cement to a surface with a trowel.\nPlan:\nThe video sequence provided shows the individual applying cement (ID 2) to a surface (ID 1) using a trowel (ID 7) with their right hand (ID 22) and left hand (ID 4) supporting. The individual is likely to continue applying cement, smoothing it out, and possibly using a lever to ensure even application.\n\nAbstraction Comments:\n1. The trowel is the main tool being used, indicating its importance in the task of applying cement.\n2. The user's hands are actively engaged in the task, suggesting that actions involving hand tools are central to the process.\n3. The presence of the cement mixture indicates that the task is ongoing and more cement will be applied.\n4. The surface being worked on is likely to change in appearance as more cement is applied and smoothed out.\n5. The user may need to clean the trowel or other tools used in the process, indicating a possible cleaning action in the future.\n\nPredicted State Change:\nThe surface will go from being uneven with cement to smooth as the user applies and smooths the cement. The trowel will be used, put down, and picked up multiple times during the process. The cement mixture will decrease in volume as it is applied to the surface.\n\nOptimized Actions:\n1. throw_(toss,_dump,_dispose) trowel\n2. apply_(spread,_smear) cement_(cement,_concrete,_mortar)\n3. move_(transfer,_pass,_exchange) lever\n4. smooth cement_(cement,_concrete,_mortar)\n5. operate_(use,_dial,_click-button) cement_(cement,_concrete,_mortar)\n6. smooth cement_(cement,_concrete,_mortar)\n7. operate_(use,_dial,_click-button) cement_(cement,_concrete,_mortar)\n8. put_(place,_leave,_drop) lever\n9. take_(pick,_grab,_get) trowel\n10. throw_(toss,_dump,_dispose) cement_(cement,_concrete,_mortar)\n11. scrape cement_(cement,_concrete,_mortar)\n12. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)\n13. put_(place,_leave,_drop) cement_(cement,_concrete,_mortar)\n14. clean_(sweep,_scrub,_mop,_dust) cement_(cement,_concrete,_mortar)\n15. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)\n16. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)\n17. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)\n18. put_(place,_leave,_drop) cement_(cement,_concrete,_mortar)\n19. smooth cement_(cement,_concrete,_mortar)\n20. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)",
+                        ['red', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'black', 'green', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'],
+                        typingSpeed
+                    );
+                    break;
+                case 'Tab15':
+                    // document.getElementById('textBlockTab3').innerHTML = displayFormattedText("More instructions for Tab 3\nAdditional details...");
+                    typeWriter(
+                        'containerTab15',
+                        "Abstracted State:\nID [13] Scissors used for cutting\nID [22] Mask being manipulated\nID [2] Sewing machine likely to be used in the task\nID [3] Right hand of user\nID [5] Left hand of user\nID [25] String being cut\n\nTask Decomposition & Subgoals:\nSummary: The user in this video is working on a sewing project, specifically cutting a string and manipulating a mask.\nPlan:\nThe user is seen cutting a string (ID 25) with scissors (ID 13) and manipulating a mask (ID 22). The user's actions suggest they are in the process of sewing or preparing to sew, as indicated by the presence of a sewing machine (ID 2).\n\nAbstraction Comments:\n1. The presence of scissors and string in the user's hands suggests cutting actions will be performed.\n2. The mask is the focus of the user's activity, indicating it will undergo various manipulations such as folding and cutting.\n3. The sewing machine's proximity and the user's actions imply it will be used for sewing parts of the mask.\n4. The sequence of actions involving the mask and string suggests a process of assembling or finishing a sewing project.\n5. The user's hands are actively engaged with the materials, indicating a hands-on task requiring dexterity and precision.\n\nPredicted State Change:\nThe string will change from being attached to being cut and separated. The mask will be folded, turned over, and possibly sewn, altering its flat state to a more three-dimensional form. The scissors will be picked up, used, and then set down multiple times.\n\nOptimized Actions:\n1. pull string_(bobbin,_knot,_lace,_ribbon,_spool,_strand,_string,_thread,_twine,_wool,_yarn)\n2. take_(pick,_grab,_get) scissors\n3. cut_(trim,_slice,_chop) mask\n4. take_(pick,_grab,_get) mask\n5. cut_(trim,_slice,_chop) mask\n6. put_(place,_leave,_drop) scissors\n7. fold mask\n8. put_(place,_leave,_drop) mask\n9. put_(place,_leave,_drop) mask\n10. take_(pick,_grab,_get) mask\n11. fold mask\n12. turn_(spin,_rotate,_flip,_turn_over) facemask\n13. pull string_(bobbin,_knot,_lace,_ribbon,_spool,_strand,_string,_thread,_twine,_wool,_yarn)\n14. put_(place,_leave,_drop) string_(bobbin,_knot,_lace,_ribbon,_spool,_strand,_string,_thread,_twine,_wool,_yarn)\n15. take_(pick,_grab,_get) facemask\n16. put_(place,_leave,_drop) facemask\n17. put_(place,_leave,_drop) facemask\n18. fold facemask\n19. move_(transfer,_pass,_exchange) facemask\n20. touch sewing_machine",
+                        ['red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'purple', 'black', 'black', 'black', 'black', 'blue', 'black', 'black', 'black', 'black', 'black', 'black', 'green', 'black', 'black', 'orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'],
+                        typingSpeed
+                    );
+                    break;
+            }
+        }
+
     function displayFormattedText(containerId, text, colors) {
             const container = document.getElementById(containerId);
             container.innerHTML = ''; // Clear the previous content
@@ -1481,16 +1829,43 @@
             "Instruction:\nCan you add the two most expensive white projectors in the 'Video Projectors' category to the comparison page?\n\nFull State:\n[] [StaticText] [My Account]\n[1] [A] [My Account]\n[] [StaticText] [My Wish List]\n[2] [A] [My Wish List]\n[] [StaticText] [Sign In]\n[3] [A] [Sign In]\n[] [StaticText] [Compare Products        1 item]\n[4] [A] [Compare Products        1 item]\n[] [StaticText] [Welcome to One Stop Market]\n[] [StaticText] [Create an Account]\n[5] [A] [Create an Account]\n[7] [IMG] [one_stop_market_logo, description: one stop market logo, url: http://metis.lti.cs.cmu.edu:7770/media/logo/websites/1/image_15__1.png]\n[8] [A] [My Cart                                                    39                                                                    39                items]\n[] [StaticText] [39]\n[] [StaticText] [39                items]\n[] [StaticText] [items]\n[] [StaticText] [Search]\n[9] [INPUT] []\n[10] [A] [Advanced Search]\n[11] [BUTTON] [Search]\n[12] [DIV] [Menu                                                                                    Beauty & Personal CareOral CareToothbrushes & AccessoriesDental Floss & PicksOrthodontic SuppliesChildren's Dent]\n[13] [DIV] [Beauty & Personal CareOral CareToothbrushes & AccessoriesDental Floss & PicksOrthodontic SuppliesChildren's Dental CareOral Pain ReliefToothpasteTeeth WhiteningBreath FreshenersDenture CareTongue Clea]\n[14] [UL] [Beauty & Personal CareOral CareToothbrushes & AccessoriesDental Floss & PicksOrthodontic SuppliesChildren's Dental CareOral Pain ReliefToothpasteTeeth WhiteningBreath FreshenersDenture CareTongue Clea]\n[15] [A] [Beauty & Personal Care]\n[16] [A] [Sports & Outdoors]\n[17] [A] [Clothing, Shoes & Jewelry]\n[18] [A] [Home & Kitchen]\n[19] [A] [Office Products]\n[20] [A] [Tools & Home Improvement]\n[21] [A] [Health & Household]\n[22] [A] [Patio, Lawn & Garden]\n[23] [A] [Electronics]\n[24] [A] [Cell Phones & Accessories]\n[25] [A] [Video Games]\n[26] [A] [Grocery & Gourmet Food]\n[] [StaticText] [One Stop Market]\n[27] [IMG] [Image, description: a package of gingerbread house cookies, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B08PCSHBXY.0.jpg]\n[28] [A] [Pre-baked Gingerbread House Kit Value Pack, 17 oz., Pack of 2, Total 34 oz.]\n[] [StaticText] [Rating:]\n[] [StaticText] [20%]\n[29] [A] [1                 Review]\n[] [StaticText] [$19.99]\n[30] [BUTTON] [Add to Cart]\n[31] [A] [Add to Wish List]\n[32] [A] [Add to Compare]\n[33] [IMG] [Image, description: energy drink with berries and grapes, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B00CPTR7WS.0.jpg]\n[34] [A] [V8 +Energy, Healthy Energy Drink, Steady Energy from Black and Green Tea, Pomegranate Blueberry, 8 Ounce Can ,Pack of 24]\n[] [StaticText] [57%]\n[35] [A] [12                 Reviews]\n[] [StaticText] [$14.47]\n[36] [BUTTON] [Add to Cart]\n[37] [A] [Add to Wish List]\n[38] [A] [Add to Compare]\n[39] [IMG] [Image, description: orange vanilla coffee flavoring, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B0040WHKIY.0.jpg]\n[40] [A] [Elmwood Inn Fine Teas, Orange Vanilla Caffeine-free Fruit Infusion, 16-Ounce Pouch]\n[] [StaticText] [95%]\n[41] [A] [4                 Reviews]\n[] [StaticText] [$19.36]\n[42] [BUTTON] [Add to Cart]\n[43] [A] [Add to Wish List]\n[44] [A] [Add to Compare]\n[45] [IMG] [Image, description: a red and yellow cake with roses and yellow candy, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B08743KW8M.0.jpg]\n[46] [A] [Belle Of The Ball Princess Sprinkle Mix| Wedding Colorful Sprinkles| Cake Cupcake Cookie Sprinkles| Ice cream Candy Sprinkles| Yellow Gold Red Royal Red Rose Icing Flowers Decorating Sprinkles, 8OZ]\n[] [StaticText] [63%]\n[47] [A] [12                 Reviews]\n[] [StaticText] [$23.50]\n[48] [BUTTON] [Add to Cart]\n[49] [A] [Add to Wish List]\n[50] [A] [Add to Compare]\n[51] [IMG] [Image, description: so delicious coconut whip, coconut whip, coconut whip, coconut whip, coconut whip, coconut whip, coconut whip, coconut whip, coconut whip, coconut whip,, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B01N1QRJNG.0.jpg]\n[52] [A] [So Delicious Dairy Free CocoWhip Light, Vegan, Non-GMO Project Verified, 9 oz. Tub]\n[] [StaticText] [78%]\n[53] [A] [12                 Reviews]\n[] [StaticText] [$15.62]\n[54] [BUTTON] [Add to Cart]\n[55] [A] [Add to Wish List]\n[56] [A] [Add to Compare]\n[57] [IMG] [Image, description: korean fried rice - 2 packs, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B07Y4MC6M5.0.jpg]\n[58] [A] [Cheongeun Sweet Potato Starch Powder 500g, 2ea(Sweet Potato 55%, Corn 45%)]\n[] [StaticText] [$34.00]\n[59] [BUTTON] [Add to Cart]\n[60] [A] [Add to Wish List]\n[61] [A] [Add to Compare]\n[62] [IMG] [Image, description: a bottle of ginger ale on a white background, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B071KC37VD.0.jpg]\n[63] [A] [Q Mixers Premium Ginger Ale: Real Ingredients & Less Sweet, 6.7 Fl Oz (24 Bottles)]\n[] [StaticText] [88%]\n[64] [A] [12                 Reviews]\n[] [StaticText] [$68.50]\n[65] [BUTTON] [Add to Cart]\n[66] [A] [Add to Wish List]\n[67] [A] [Add to Compare]\n[68] [IMG] [Image, description: kraft stove top turkey & cranberry, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B004U5F23G.0.jpg]\n[69] [A] [Stove Top Turkey Stuffing Mix (12 oz Boxes, Pack of 2)]\n[] [StaticText] [85%]\n[70] [A] [12                 Reviews]\n[] [StaticText] [$8.49]\n[71] [BUTTON] [Add to Cart]\n[72] [A] [Add to Wish List]\n[73] [A] [Add to Compare]\n[74] [IMG] [Image, description: a beige powder on a white background, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B074DBMG66.0.jpg]\n[75] [A] [Briess DME - Pilsen Light - 1 lb Bag]\n[] [StaticText] [$12.99]\n[76] [BUTTON] [Add to Cart]\n[77] [A] [Add to Wish List]\n[78] [A] [Add to Compare]\n[79] [IMG] [Image, description: tony chachere's more spice seasoning, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B001Q1J3QY.0.jpg]\n[80] [A] [Tony Chachere's More Spice Creole Seasoning - 14 oz]\n[] [StaticText] [75%]\n[81] [A] [12                 Reviews]\n[] [StaticText] [$7.92]\n[82] [BUTTON] [Add to Cart]\n[83] [A] [Add to Wish List]\n[84] [A] [Add to Compare]\n[85] [IMG] [Image, description: a plate of lobster pies with carrots and peas, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B0793RMRGT.0.jpg]\n[86] [A] [Lobster Cobbler Pot Pie - Gourmet Frozen Seafood Appetizers (Set of 8 Trays)]\n[] [StaticText] [$411.76]\n[87] [BUTTON] [Add to Cart]\n[88] [A] [Add to Wish List]\n[89] [A] [Add to Compare]\n[90] [IMG] [Image, description: crunchy rollers - pack of 6, url: http://metis.lti.cs.cmu.edu:7770/media/catalog/product/cache/89ff578b9cd87e0600daac45c9e1ea98/B/0/B00J7HXXGA.0.jpg]\n[91] [A] [Crunchy Rice Rollers - Gluten Free - Vegan - 3.5 oz Individual Packs (4 Packs of 8 Rollers)]\n[] [StaticText] [83%]\n[92] [A] [12                 Reviews]\n[] [StaticText] [$11.50]\n[93] [BUTTON] [Add to Cart]\n[94] [A] [Add to Wish List]\n[95] [A] [Add to Compare]\n[] [StaticText] [Items 1 to 12 of 24 total]\n\nRaw Actions:\nclick [21]",
             ['grey', 'black', 'black', 'red', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'orange', 'black']
         );
+        displayFormattedText(
+            'textBlockTab11',
+            "Raw Actions:\n1. hold_(support,_grip,_grasp) bottle_(bottle,_flask)\n2. open bottle_(bottle,_flask)\n3. put_(place,_leave,_drop) bottle_(bottle,_flask)\n4. put_(place,_leave,_drop) lid_(cap,_cover,_lid)\n5. take_(pick,_grab,_get) spoon_(spoon,_spoonful)\n6. mix food\n7. close food\n8. take_(pick,_grab,_get) bottle_(bottle,_flask)\n9. open bottle_(bottle,_flask)\n10. pour sauce\n11. take_(pick,_grab,_get) spoon_(spoon,_spoonful)\n12. put_(place,_leave,_drop) spoon_(spoon,_spoonful)\n13. take_(pick,_grab,_get) soil_(dirt,_mud,_soil)\n14. adjust_(regulate,_increase/reduce,_change) bottle_(bottle,_flask)\n15. hold_(support,_grip,_grasp) spoon_(spoon,_spoonful)\n16. mix food\n17. put_(place,_leave,_drop) spoon_(spoon,_spoonful)\n18. take_(pick,_grab,_get) bottle_(bottle,_flask)\n19. hold_(support,_grip,_grasp) bottle_(bottle,_flask)\n20. open bottle_(bottle,_flask)",
+            ['orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black']
+        );
+        displayFormattedText(
+            'textBlockTab12',
+            "Raw Actions:\n1. wipe lid_(cap,_cover,_lid)\n2. open lid_(cap,_cover,_lid)\n3. throw_(toss,_dump,_dispose) napkin_(handkerchief,_napkin,_serviette,_tissue,_wipe)\n4. take_(pick,_grab,_get) napkin_(handkerchief,_napkin,_serviette,_tissue,_wipe)\n5. open lid_(cap,_cover,_lid)\n6. put_(place,_leave,_drop) napkin_(handkerchief,_napkin,_serviette,_tissue,_wipe)\n7. take_(pick,_grab,_get) brush\n8. clean_(sweep,_scrub,_mop,_dust) toilet\n9. put_(place,_leave,_drop) brush\n10. hold_(support,_grip,_grasp) handle\n11. turn_on_(switch_on,_start,_light) switch_(knob,_switch)\n12. remove glove\n13. put_(place,_leave,_drop) glove\n14. take_(pick,_grab,_get) plate_(dish,_plate,_platter,_saucer)\n15. take_(pick,_grab,_get) detergent\n16. put_(place,_leave,_drop) detergent\n17. put_(place,_leave,_drop) detergent\n18. turn_on_(switch_on,_start,_light) faucet_(faucet,_tap)\n19. open drawer\n20. close drawer",
+            ['orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black'],
+        );
+        displayFormattedText(
+            'textBlockTab13',
+            "Raw Actions:\n1. squeeze sponge_(scrubber,_sponge)\n2. wash car_(car,_vehicle)\n3. wash car_(car,_vehicle)\n4. wash car_(car,_vehicle)\n5. put_(place,_leave,_drop) sponge_(scrubber,_sponge)\n6. take_(pick,_grab,_get) spray_(spray,_sprayer)\n7. spray water\n8. touch water\n9. adjust_(regulate,_increase/reduce,_change) spray_(spray,_sprayer)\n10. spray spray_(spray,_sprayer)\n11. spray car_(car,_vehicle)\n12. spray car_(car,_vehicle)\n13. put_(place,_leave,_drop) spray_(spray,_sprayer)\n14. turn_(spin,_rotate,_flip,_turn_over) faucet_(faucet,_tap)\n15. turn_(spin,_rotate,_flip,_turn_over) switch_(knob,_switch)\n16. turn_(spin,_rotate,_flip,_turn_over) faucet_(faucet,_tap)\n17. turn_(spin,_rotate,_flip,_turn_over) faucet_(faucet,_tap)\n18. turn_(spin,_rotate,_flip,_turn_over) faucet_(faucet,_tap)\n19. take_(pick,_grab,_get) spray_(spray,_sprayer)\n20. hold_(support,_grip,_grasp) spray_(spray,_sprayer)",
+            ['orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black']
+        );
+        displayFormattedText(
+            'textBlockTab14',
+            "Raw Actions:\n1. throw_(toss,_dump,_dispose) trowel\n2. apply_(spread,_smear) cement_(cement,_concrete,_mortar)\n3. move_(transfer,_pass,_exchange) lever\n4. smooth cement_(cement,_concrete,_mortar)\n5. operate_(use,_dial,_click-button) cement_(cement,_concrete,_mortar)\n6. smooth cement_(cement,_concrete,_mortar)\n7. operate_(use,_dial,_click-button) cement_(cement,_concrete,_mortar)\n8. put_(place,_leave,_drop) lever\n9. take_(pick,_grab,_get) trowel\n10. throw_(toss,_dump,_dispose) cement_(cement,_concrete,_mortar)\n11. scrape cement_(cement,_concrete,_mortar)\n12. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)\n13. put_(place,_leave,_drop) cement_(cement,_concrete,_mortar)\n14. clean_(sweep,_scrub,_mop,_dust) cement_(cement,_concrete,_mortar)\n15. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)\n16. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)\n17. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)\n18. put_(place,_leave,_drop) cement_(cement,_concrete,_mortar)\n19. smooth cement_(cement,_concrete,_mortar)\n20. take_(pick,_grab,_get) cement_(cement,_concrete,_mortar)",
+            ['orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black']
+        );
+        displayFormattedText(
+            'textBlockTab15',
+            "Raw Actions:\n1. pull string_(bobbin,_knot,_lace,_ribbon,_spool,_strand,_string,_thread,_twine,_wool,_yarn)\n2. take_(pick,_grab,_get) scissors\n3. cut_(trim,_slice,_chop) mask\n4. take_(pick,_grab,_get) mask\n5. cut_(trim,_slice,_chop) mask\n6. put_(place,_leave,_drop) scissors\n7. fold mask\n8. put_(place,_leave,_drop) mask\n9. put_(place,_leave,_drop) mask\n10. take_(pick,_grab,_get) mask\n11. fold mask\n12. turn_(spin,_rotate,_flip,_turn_over) facemask\n13. pull string_(bobbin,_knot,_lace,_ribbon,_spool,_strand,_string,_thread,_twine,_wool,_yarn)\n14. put_(place,_leave,_drop) string_(bobbin,_knot,_lace,_ribbon,_spool,_strand,_string,_thread,_twine,_wool,_yarn)\n15. take_(pick,_grab,_get) facemask\n16. put_(place,_leave,_drop) facemask\n17. put_(place,_leave,_drop) facemask\n18. fold facemask\n19. move_(transfer,_pass,_exchange) facemask\n20. touch sewing_machine",
+            ['orange', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black', 'black']
+        );
     });
 
     // Optionally, to show the first tab by default on load
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".tablinks").click();
         document.querySelector(".tablinks_vwa").click();
+        document.querySelector(".tablinks_ego").click();
     });
 
 </script>
-
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 
 </body>
