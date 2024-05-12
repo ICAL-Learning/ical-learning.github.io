@@ -1027,11 +1027,11 @@
                 
                 <p>ICAL then processes noisy demonstrations in two phases:</p>
                 <p>
-                (1) the abstraction phase where a VLM autonomously corrects errors and adds natural language comments:
+                (1) the abstraction phase where a VLM is prompted to correct errors and generate language and visual abstractions:
                 \[
                 F_{abstract}: (\xi_{noisy}, I, \{e^1, \ldots, e^k\}) \rightarrow (\xi_{optimized}, L)
                 \]
-                (2) the human-in-the-loop phase, where abstractions are guided by human feedback: 
+                (2) the human-in-the-loop phase, where the abstractions are refined guided by human feedback: 
                 \[
                 \Xi_{update}(\xi_{optimized}, H(a_t, o_t), L, I, \{e^1, ..., e^k\}) \rightarrow \xi'_{optimized}, L'
                 \]
@@ -1039,7 +1039,7 @@
                 Successful trajectories are stored in a repository to assist the agent in learning and
                 responding to new instructions and environments.</p>
 
-                ICAL learns effectively by focusing on the following types of abstractions:
+                ICAL learns effectively by generating the following types of abstractions:
                 <ul>
                     <li><strong>Task and Causal Abstractions:</strong> Essential principles and actions are identified to achieve goals,
                         explaining how elements interconnect through cause and effect.</li>
@@ -1107,7 +1107,7 @@
                 <div id="Tab1" class="tabcontent">
                     <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
                             style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Video:</b></div>
                     <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             src="images/teach_images/interaction_video_baa4e99d8931aaa1_07e0.tfd_baa4e99d8931aaa1_07e0.png"
                             class="nopadimg"></div>
@@ -1122,7 +1122,7 @@
                 <div id="Tab2" class="tabcontent">
                     <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
                             style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Video:</b></div>
                     <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             src="images/teach_images/interaction_video_f79c6594b742b28e_31a6.tfd_f79c6594b742b28e_31a6.png"
                             class="nopadimg"></div>
@@ -1138,7 +1138,7 @@
                 <div id="Tab3" class="tabcontent">
                     <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
                             style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Video:</b></div>
                     <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             src="images/teach_images/interaction_video_250ea89c821ebbf2_2500.tfd_250ea89c821ebbf2_2500.png"
                             class="nopadimg"></div>
@@ -1154,7 +1154,7 @@
                 <div id="Tab4" class="tabcontent">
                     <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
                             style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Video:</b></div>
                     <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             src="images/teach_images/interaction_video_717112cc2f4e5c47_d55b.tfd_717112cc2f4e5c47_d55b.png"
                             class="nopadimg"></div>
@@ -1170,7 +1170,7 @@
                 <div id="Tab5" class="tabcontent">
                     <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
                             style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
-                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Trajectory:</b></div>
+                    <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Agent Video:</b></div>
                     <div style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
                             src="images/teach_images/interaction_video_f79c6594b742b28e_31a6.tfd_f79c6594b742b28e_31a6.png"
                             class="nopadimg"></div>
@@ -1213,8 +1213,6 @@
                     <div style="width: 100%; float: left; padding-left: 210px; padding-right: 10px;"><b>Webpage image:</b></div>
                     <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
                             style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
-                    <!-- <div style="width: 60%; float: left; padding-left: 10px; padding-right: 10px;"><img src="images/vwa_images/image_classifieds_172.png"
-                            class="nopadimg"></div> -->
                     <div style="width: 70%; float: left; padding-left: 10px; padding-right: 10px; overflow-y: auto; max-height: 300px;">
                         <img src="images/vwa_images/image_classifieds_172.png" class="nopadimg">
                     </div>
@@ -1238,6 +1236,16 @@
                 </div>
                 
                 <div id="Tab7" class="tabcontent_vwa">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 210px; padding-right: 10px;"><b>Webpage image:</b></div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 70%; float: left; padding-left: 10px; padding-right: 10px; overflow-y: auto; max-height: 300px;">
+                        <img src="images/vwa_images/image_classifieds_40.png" class="nopadimg">
+                    </div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
                     </div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
@@ -1245,7 +1253,9 @@
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab7" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_classifieds_40.png" class="nopadimg"></div>
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <!-- <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_classifieds_40.png" class="nopadimg"></div> -->
                     <div id="containerTab7" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
@@ -1253,6 +1263,16 @@
                 </div>
                 
                 <div id="Tab8" class="tabcontent_vwa">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 210px; padding-right: 10px;"><b>Webpage image:</b></div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 70%; float: left; padding-left: 10px; padding-right: 10px; overflow-y: auto; max-height: 300px;">
+                        <img src="images/vwa_images/image_reddit_28_2.png" class="nopadimg">
+                    </div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
                     </div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
@@ -1260,7 +1280,9 @@
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab8" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_reddit_28_2.png" class="nopadimg"></div>
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <!-- <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_reddit_28_2.png" class="nopadimg"></div> -->
                     <div id="containerTab8" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
@@ -1268,6 +1290,16 @@
                 </div>
                 
                 <div id="Tab9" class="tabcontent_vwa">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 210px; padding-right: 10px;"><b>Webpage image:</b></div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 70%; float: left; padding-left: 10px; padding-right: 10px; overflow-y: auto; max-height: 300px;">
+                        <img src="images/vwa_images/image_reddit_70_2.png" class="nopadimg">
+                    </div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
                     </div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
@@ -1275,7 +1307,9 @@
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab9" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_reddit_70_2.png" class="nopadimg"></div>
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <!-- <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_reddit_70_2.png" class="nopadimg"></div> -->
                     <div id="containerTab9" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
@@ -1283,6 +1317,16 @@
                 </div>
                 
                 <div id="Tab10" class="tabcontent_vwa">
+                    <div class="w3-center" style="width: 20%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 100%; float: left; padding-left: 210px; padding-right: 10px;"><b>Webpage image:</b></div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
+                    <div style="width: 70%; float: left; padding-left: 10px; padding-right: 10px; overflow-y: auto; max-height: 300px;">
+                        <img src="images/vwa_images/image_shopping_190_0.png" class="nopadimg">
+                    </div>
+                    <div class="w3-center" style="width: 15%; float: left; padding-left: 10px; padding-right: 10px; opacity: 0.0;"><img
+                            style="width: 15%" src="images/white_space.jpg" class="nopadimg"></div>
                     <div class="w3-center" style="width: 40%; float: left; height: 40px; padding-top: 20px;"><b>Raw Demonstration</b>
                     </div>
                     <div class="w3-center" style="width: 20%; float: left; height: 40px; padding-top: 20px;"></div>
@@ -1290,7 +1334,9 @@
                             Example (Single Time Step)</b></div>
                     <div id="textBlockTab10" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
-                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_shopping_190_0.png" class="nopadimg"></div>
+                            src="images/ICAL_arrow.jpg" class="nopadimg"></div>
+                    <!-- <div style="width: 20%; float: left; padding-top: 250px; padding-left: 10px; padding-right: 10px;"><img
+                            src="images/ICAL_arrow.jpg" class="nopadimg"><b>Webpage:</b><img style="width: 100%" src="images/vwa_images/image_shopping_190_0.png" class="nopadimg"></div> -->
                     <div id="containerTab10" style="width: 40%; float: left; height: 600px; overflow-y: auto;"></div>
                     <!-- <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><b>Saved Image:</b></div>
                     <div class="w3-center" style="width: 100%; float: left; padding-left: 10px; padding-right: 10px;"><img
@@ -1462,6 +1508,95 @@
                 SoM (Koh et. Al., 2023) on the VisualWebArena benchmark</b> by an absolute 8.4% in average success rate. The baseline utilizes GPT4V with few-shot hand-designed examples and set of
                 marks image prompting.</p>
                 <div class="w3-center" style="width: 100%;"><img style="width: 50%" src="images/VWA_plots.jpg"></div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center">
+                    <h3>Ego4D Video Action Forecasting</h3>
+                </div>
+                <p>ICAL demonstrates superior performance on Ego4D
+                action anticipation compared to hand-written few-shot GPT4V that uses chain of thought. ICAL also remains competitive with the fully supervised
+                baseline (grauman et. Al., 2022) despite using 639x less training data.</p>
+                <div class="w3-center" style="width: 100%; padding-left: 70px;"><img style="width: 50%" src="images/video_forecasting_website.jpg"></div>
+                
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center">
+                    <h2>Videos</h2>
+                </div>
+                <div class="w3-center">
+                    <p><b>Instruction:</b> Find me powder to make the beverage that is the same as the picture:
+                        <img style="width: 10%; vertical-align: bottom;" src="images/matcha_image_website.jpg">
+                    </p>
+                </div>
+                <div class="w3-center">
+                <video controls muted autoplay loop width="60%">
+                    <source src="images/shopping_296Agent.mp4" type="video/mp4">
+                    <source src="movie.ogg" type="video/ogg">
+                    Your browser does not support the video tag.
+                </video>
+                <!-- <img style="width: 10%; vertical-align: top;" src="images/matcha_image_website.jpg"> -->
+                </div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center">
+                    <p><b>Instruction:</b> What is the email of the seller of the red pallete on this page?</p>
+                </div>
+                <div class="w3-center">
+                    <video controls muted autoplay loop width="60%">
+                        <source src="images/class_50Agent.mp4" type="video/mp4">
+                        <source src="movie.ogg" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center">
+                    <h4>Human-in-the-Loop</h4>
+                </div>
+                <div class="w3-center">
+                    <p><b>Instruction:</b> Can you search for "Cheerios", and add the family sized blue Cheerios cereal to my cart and order it only if the total
+                    comes out to less than $43?</p>
+                </div>
+                <div class="w3-center">
+                    <video controls muted autoplay loop width="60%">
+                        <source src="images/Shopping_272Final.mp4" type="video/mp4">
+                        <source src="movie.ogg" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center">
+                    <p><b>Instruction:</b> &lt;Driver&gt; hello. &lt;Driver&gt; task please. &lt;Commander&gt; We have a lot to do! Hello! &lt;Commander&gt; We
+                    need to wash a mug and fill it with coffee. &lt;Driver&gt; ok. &lt;Commander&gt; The mug is on the island on a plate.
+                    &lt;Commander&gt; Great. Now take it to the sink to clean it. &lt;Commander&gt; good work. &lt;Commander&gt; Now we need
+                    to add the coffee. &lt;Driver&gt; done. &lt;Commander&gt; Good job! &lt;Driver&gt; next please. &lt;Commander&gt; We
+                    need to find a knife and the bread. &lt;Driver&gt; have knife where is bread? &lt;Commander&gt; The bread is in the
+                    fridge. &lt;Commander&gt; We need two slices of bread toasted. &lt;Driver&gt; done. &lt;Driver&gt; ok. &lt;Driver&gt;
+                    done. &lt;Commander&gt; Grab the knife again. &lt;Commander&gt; We need to slice the tomato and lettuce.
+                    &lt;Commander&gt; The tomato and lettuce need to be on the plate with the bread. &lt;Commander&gt; Good work! Have a
+                    great day! &lt;Driver&gt; done. &lt;Driver&gt; thank.</p>
+                </div>
+                <div class="w3-center">
+                    <video controls muted autoplay loop width="40%">
+                        <source src="images/output0_movie_FINAL_success_True_33058982c98c2919_9452.tfd_33058982c98c2919_9452.mp4" type="video/mp4">
+                        <!-- <source src="movie.ogg" type="video/ogg"> -->
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
+                <div class="w3-center">
+                    <p><b>Instruction:</b> &lt;Commander&gt; boil whole potatoes in water. &lt;Driver&gt; hello. &lt;Commander&gt; potato. &lt;Commander&gt; hi.
+                    &lt;Commander&gt; it's in the lower drawer to the left of the cooking stove. &lt;Driver&gt; the knife? &lt;Commander&gt;
+                    don't cut. boil it whole. &lt;Driver&gt; where do I boil it? &lt;Commander&gt; in the pot on the stove.
+                    &lt;Commander&gt; awesome. task complete.</p>
+                </div>
+                <div class="w3-center">
+                    <video controls muted autoplay loop width="40%">
+                        <source src="images/output0_movie_FINAL_success_True_f739111c57090fa0_911d.tfd_f739111c57090fa0_911d.mp4"
+                            type="video/mp4">
+                        <source src="movie.ogg" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <!-- <div class="w3-center" style="width: 100%; padding-left: 70px;"><img style="width: 50%"
+                        src="images/video_forecasting_website.jpg"></div> -->
 
                 <br>
                 <spacer type="horizontal" width="100" height="50"> </spacer>
