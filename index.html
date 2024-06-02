@@ -910,9 +910,31 @@
             background-color: #666;
             color: white;
         }
-
-
-
+    </style>
+    <style>
+        .names-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .names-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px; /* Adjust the gap between names */
+            margin-bottom: 10px; /* Adjust the spacing between rows */
+        }
+        .names-row a {
+            text-decoration: none;
+            color: #1a73e8; /* Adjust the link color */
+            font-size: 16px; /* Specify the font size */
+        }
+        .institution-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* Adjust the gap between logos and text */
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -928,30 +950,25 @@
                 <div class="w3-center">
                     <h2>ICAL: Continual Learning of Multimodal Agents by Transforming Trajectories into Actionable Insights</h2>
                     <br>
-                    <h5><a href="https://www.gabesarch.me">Gabriel Sarch</a> &emsp;&emsp; 
-                        <a href="https://www.linkedin.com/in/lawrencejang">Lawrence Jang</a> &emsp;&emsp;
-                        <a href="https://sites.google.com/andrew.cmu.edu/tarrlab/people/michael-j-tarr">Michael Tarr</a>
-                        <!-- <a href="https://www.cs.cmu.edu/~wcohen/">William Cohen</a> &emsp;&emsp;
-                        <a href="https://kennethmarino.com/">Kennth Marino</a> &emsp;&emsp;
-                        <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>  -->
-                    </h5>
-                    <h5>
-                        <!-- <a href="https://www.gabesarch.me">Gabriel Sarch</a> &emsp;&emsp;
-                        <a href="https://www.linkedin.com/in/lawrencejang">Lawrence Jang</a> &emsp;&emsp;
-                        <a href="https://sites.google.com/andrew.cmu.edu/tarrlab/people/michael-j-tarr">Michael
-                            Tarr</a> &emsp;&emsp; -->
-                        &emsp;&emsp;&emsp;&emsp; <a href="https://www.cs.cmu.edu/~wcohen/">William Cohen</a> &emsp;&emsp;
-                        <a href="https://kennethmarino.com/">Kenneth Marino</a> &emsp;&emsp;
-                        <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>
-                    </h5>
-                    <br>
-                    <div class="w3-center">
-                        <img src="images/cmu.png" alt="Carnegie Mellon Logo" style="width:50px;height:auto;vertical-align:middle;">
-                         Carnegie Mellon University &emsp;&emsp; 
-                        <img src="images/deepmind.png" alt="Deepmind Logo" style="width:50px;height:auto;vertical-align:middle;">
-                         Google Deepmind
+                    <div class="names-container">
+                        <div class="names-row">
+                            <a href="https://www.gabesarch.me">Gabriel Sarch</a>
+                            <a href="https://www.linkedin.com/in/lawrencejang">Lawrence Jang</a>
+                            <a href="https://sites.google.com/andrew.cmu.edu/tarrlab/people/michael-j-tarr">Michael Tarr</a>
+                        </div>
+                        <div class="names-row">
+                            <a href="https://www.cs.cmu.edu/~wcohen/">William Cohen</a>
+                            <a href="https://kennethmarino.com/">Kenneth Marino</a>
+                            <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>
+                        </div>
                     </div>
-                </div>
+                    <br>
+                    <div class="institution-logos">
+                        <img src="images/cmu.png" alt="Carnegie Mellon Logo" style="width:50px;height:auto;vertical-align:middle;">
+                        <span>Carnegie Mellon University</span>
+                        <img src="images/deepmind.png" alt="Deepmind Logo" style="width:50px;height:auto;vertical-align:middle;">
+                        <span>Google Deepmind</span>
+                    </div>
 
                 <br>
 
@@ -964,7 +981,7 @@
                         role="button">
                         <img src="images/code.png" class="vertical-center-code"> Code
                     </a>
-                    <a href="#" target="_blank" class="btn-code" role="button" style="width: 115px;">
+                    <a href="https://twitter.com/GabrielSarch" target="_blank" class="btn-code" role="button" style="width: 115px;">
                         <img src="images/twitt.png" class = "vertical-center-code"> Twitter
                     </a>
                 </div>
