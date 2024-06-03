@@ -1044,7 +1044,7 @@
                 \[
                 F_{abstract}: (\xi_{noisy}, I, \{e^1, \ldots, e^k\}) \rightarrow (\xi_{optimized}, L)
                 \]
-                (2) the human-in-the-loop phase, where the abstractions are refined guided by human feedback H(a_t, o_t). The model update can be represented as Xi_{update}: 
+                (2) the human-in-the-loop phase, where the abstractions are refined guided by human feedback \H(a_t, o_t). The model update can be represented as \Xi_{update}: 
                 \[
                 \Xi_{update}(\xi_{optimized}, H(a_t, o_t), L, I, \{e^1, ..., e^k\}) \rightarrow \xi'_{optimized}, L'
                 \]
@@ -1085,9 +1085,9 @@
 
                     <h2>Aggregated Similarity Score</h2>
                     <p>The aggregated similarity score \(s\) for each example \(e\) reads:</p>
-                    <pre>
+                    <p>
                         \(s = \lambda_{I} \cdot s^I + \lambda_{\text{textual}} \cdot s^{\text{textual}} + \lambda_{\text{visual}} \cdot s^{\text{visual}},\)
-                    </pre>
+                    </p>
                     <p>where \(s^I\), \(s^{\text{textual}}\), and \(s^{\text{visual}}\) are the similarity scores for the input text instruction, textual state, and visual state, respectively, computed via cosine similarity using embeddings from OpenAI's text-embedding-ada-002 model and CLIP ViT-B/32 model. The coefficients \(\lambda_{I}\), \(\lambda_{\text{textual}}\), and \(\lambda_{\text{visual}}\) are weighting hyperparameters chosen in each domain by a held out validation set.</p>
                 
                     <p>The VLM prompt contains the new instruction \(I\), the current webpage image for web agents or 12 video frames for ego4D annotated with set-of-marks, a textual state description \(x_t\) describing the objects and their attributes for embodied agents and HTML elements for web agents, the action API \(A\), and the retrieved set of in-context examples \(\{e^1,...,e^k\} \in \M\).</p>
