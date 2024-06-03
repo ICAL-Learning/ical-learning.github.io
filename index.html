@@ -1081,12 +1081,16 @@
                     and environments using retrieval-augmented
                     generation.</p>
                 
-                <p>
-                    A new domain <i>D</i> represents changes in task variables not captured in VLM pretraining, such as a different environment (e.g., kitchen #1 vs. kitchen #2), task (e.g., "add the cheapest red bike to my wish list"), or user preference (e.g., "I prefer the red cup for coffee"). The core aim of <model> is to abstract each noisy trajectory into a single example <i>e</i>, which then forms part of a memory set <i>M</i>. Each example <i>e &#x2208; M</i> represents an optimized trajectory <i>&#958;<sub>optimized</sub></i> with generalizable language abstractions <i>L</i>. The objective is to ensure that <i>M</i> collectively encapsulates examples that, when used in a VLMs context window, increase the likelihood of successful task execution in the new domain, while also containing knowledge that is transferable across similar tasks and contexts. This can be encapsulated as:
-                </p>
-                <p>
-                    where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i>M</i>.
-                </p>
+                    <p>Given the learned example set <i>M</i> and a new instruction \(I\), we prompt the VLM to carry out the instruction by producing action sequences \(\{a_0, ..., a_T\} \in A\) from an action API that describes the skills set \(A\) (e.g., <code>go_to(X)</code>, <code>pickup(X)</code>), by retrieving the top \(K\) examples from <code>M</code> to include in the prompt based on their textual and visual similarity with the current scene.</p>
+
+                    <h2>Aggregated Similarity Score</h2>
+                    <p>The aggregated similarity score \(s\) for each example \(e\) reads:</p>
+                    <pre>
+                        \(s = \lambda_{I} \cdot s^I + \lambda_{\text{textual}} \cdot s^{\text{textual}} + \lambda_{\text{visual}} \cdot s^{\text{visual}},\)
+                    </pre>
+                    <p>where \(s^I\), \(s^{\text{textual}}\), and \(s^{\text{visual}}\) are the similarity scores for the input text instruction, textual state, and visual state, respectively, computed via cosine similarity using embeddings from OpenAI's text-embedding-ada-002 model and CLIP ViT-B/32 model. The coefficients \(\lambda_{I}\), \(\lambda_{\text{textual}}\), and \(\lambda_{\text{visual}}\) are weighting hyperparameters chosen in each domain by a held out validation set.</p>
+                
+                    <p>The VLM prompt contains the new instruction \(I\), the current webpage image for web agents or 12 video frames for ego4D annotated with set-of-marks, a textual state description \(x_t\) describing the objects and their attributes for embodied agents and HTML elements for web agents, the action API \(A\), and the retrieved set of in-context examples \(\{e^1,...,e^k\} \in \M\).</p>
                 
                 </div>
                 <br>
