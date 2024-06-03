@@ -1057,7 +1057,7 @@
                 \[
                 F_{abstract}: (\xi_{noisy}, I, \{e^1, \ldots, e^k\}) \rightarrow (\xi_{optimized}, L)
                 \]
-                (2) the human-in-the-loop phase, where the abstractions are refined guided by human feedback <i>H(a_t, o_t)</i>. The model update can be represented as \(\Xi_{\text{update}}\): 
+                (2) the human-in-the-loop phase, where the abstractions are refined guided by human feedback \(H(a_t, o_t)\). The model update can be represented as \(\Xi_{\text{update}}\): 
                 \[
                 \Xi_{update}(\xi_{optimized}, H(a_t, o_t), L, I, \{e^1, ..., e^k\}) \rightarrow \xi'_{optimized}, L'
                 \]
@@ -1074,7 +1074,7 @@
                 <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
                 <hr>
                 <div class="w3-center">
-                    <h2>Retrieval Augmented Generation at Deployment</h2>
+                    <h2>Memory Retrieval Augmented Generation for Abstraction History</h2>
                 </div>
                 <div>
                 <p>After the ICAL examples have
@@ -1086,16 +1086,16 @@
 
                     <p>The aggregated similarity score \(s\) for each example \(e\) reads:</p>
                     <p style="text-align: center;">
-                        \(s = \lambda_{I} \cdot s^I + \lambda_{\text{textual}} \cdot s^{\text{textual}} + \lambda_{\text{visual}} \cdot s^{\text{visual}},\)
+                        \(s = \lambda_{I} \cdot s^I + \lambda_{\text{textual}} \cdot s^{\text{textual}} + \lambda_{\text{visual}} \cdot s^{\text{visual}}\)
                     </p>
-                    <p>where \(s^I\), \(s^{\text{textual}}\), and \(s^{\text{visual}}\) are the similarity scores for the input text instruction, textual state, and visual state, respectively, computed via cosine similarity using embeddings from OpenAI's text-embedding-ada-002 model and CLIP ViT-B/32 model. The coefficients \(\lambda_{I}\), \(\lambda_{\text{textual}}\), and \(\lambda_{\text{visual}}\) are weighting hyperparameters chosen in each domain by a held out validation set.</p>
+                    <p>where \(s^I\), \(s^{\text{textual}}\), and \(s^{\text{visual}}\) are the similarity scores for the input text instruction, textual state, and visual state, respectively, computed via cosine similarity using embeddings from OpenAI's <code>text-embedding-ada-002</code> model and <code>CLIP ViT-B/32</code> model. The coefficients \(\lambda_{I}\), \(\lambda_{\text{textual}}\), and \(\lambda_{\text{visual}}\) are weighting hyperparameters chosen in each domain by a held out validation set.</p>
                 
-                    <p>The VLM prompt contains the new instruction \(I\), the current webpage image for web agents or 12 video frames for ego4D annotated with set-of-marks, a textual state description \(x_t\) describing the objects and their attributes for embodied agents and HTML elements for web agents, the action API \(A\), and the retrieved set of in-context examples \(\{e^1,...,e^k\} \in <i>M</i>).</p>
+                    <p>The VLM prompt contains the new instruction \(I\), the current webpage image for VisualWebArena or 12 video frames for Ego4D annotated with Set-of-Marks, a textual state description \(x_t\) describing the objects and their attributes for embodied agents and HTML elements for web agents, the action API \(A\), and the retrieved set of in-context examples \(\{e^1,...,e^k\} \in <i>M</i>).</p>
                 
                 </div>
                 <br>
                 <!-- <div class="w3-center" style="width: 70%"><img src="images/Figure2_method.jpg"></div> -->
-                <div class="w3-center" style="width: 60%; margin-left: auto; margin-right: auto;">
+                <div class="w3-center" style="width: 75%; margin-left: auto; margin-right: auto;">
                     <img src="images/Figure_deploy.jpg">
                 </div>
                 <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
