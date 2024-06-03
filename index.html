@@ -1029,7 +1029,14 @@
                 <p>
                     A new domain <i>D</i> represents changes in task variables not captured in VLM pretraining, such as a different environment (e.g., kitchen #1 vs. kitchen #2), task (e.g., "add the cheapest red bike to my wish list"), or user preference (e.g., "I prefer the red cup for coffee"). The core aim of <model> is to abstract each noisy trajectory into a single example <i>e</i>, which then forms part of a memory set <i><exampleset></i>. Each example <i>e &#x2208; <exampleset></i> represents an optimized trajectory <i>&#958;<sub>optimized</sub></i> with generalizable language abstractions <i>L</i>. The objective is to ensure that <i><exampleset></i> collectively encapsulates examples that, when used in a VLMs context window, increase the likelihood of successful task execution in the new domain, while also containing knowledge that is transferable across similar tasks and contexts. This can be encapsulated as:
                 </p>
-                    
+                <p>
+                    \[
+                    \max_{E} \mathbb{E}[R | e, I, o_t, D]
+                    \]
+                </p>
+                <p>
+                    where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i><exampleset></i>.
+                </p>
                 
                 <p>ICAL then processes noisy demonstrations in two phases:</p>
                 <p>
