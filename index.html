@@ -1083,7 +1083,6 @@
                 
                     <p>Given the learned example set <i>M</i> and a new instruction \(I\), we prompt the VLM to carry out the instruction by producing action sequences \(\{a_0, ..., a_T\} \in A\) from an action API that describes the skills set \(A\) (e.g., <code>go_to(X)</code>, <code>pickup(X)</code>), by retrieving the top \(K\) examples from <i>M</i> to include in the prompt based on their textual and visual similarity with the current scene.</p>
 
-                    <h2>Aggregated Similarity Score</h2>
                     <p>The aggregated similarity score \(s\) for each example \(e\) reads:</p>
                     <p style="text-align: center;">
                         \(s = \lambda_{I} \cdot s^I + \lambda_{\text{textual}} \cdot s^{\text{textual}} + \lambda_{\text{visual}} \cdot s^{\text{visual}},\)
