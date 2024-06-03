@@ -1037,20 +1037,6 @@
                 <p>
                     where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i>M</i>.
                 </p>
-                
-                <p>ICAL then processes noisy demonstrations in two phases:</p>
-                <p>
-                (1) the abstraction phase where a VLM is prompted to correct errors and generate language and visual abstractions:
-                \[
-                F_{abstract}: (\xi_{noisy}, I, \{e^1, \ldots, e^k\}) \rightarrow (\xi_{optimized}, L)
-                \]
-                (2) the human-in-the-loop phase, where the abstractions are refined guided by human feedback <i>H(a_t, o_t)</i>. The model update can be represented as \(\Xi_{\text{update}}\): 
-                \[
-                \Xi_{update}(\xi_{optimized}, H(a_t, o_t), L, I, \{e^1, ..., e^k\}) \rightarrow \xi'_{optimized}, L'
-                \]
-                
-                Successful trajectories are stored in a repository to assist the agent in learning and
-                responding to new instructions and environments.</p>
 
                 ICAL learns effectively by generating the 4 types of abstractions:
                 <ol>
@@ -1064,6 +1050,21 @@
                         demonstration, and suggesting additional relevant state variables, avoiding overwhelming detail and enhancing
                         performance.</li>
                 </ol>
+                
+                <p>ICAL processes noisy demonstrations in two phases:</p>
+                <p>
+                (1) the abstraction phase where a VLM is prompted to correct errors and generate language and visual abstractions:
+                \[
+                F_{abstract}: (\xi_{noisy}, I, \{e^1, \ldots, e^k\}) \rightarrow (\xi_{optimized}, L)
+                \]
+                (2) the human-in-the-loop phase, where the abstractions are refined guided by human feedback <i>H(a_t, o_t)</i>. The model update can be represented as \(\Xi_{\text{update}}\): 
+                \[
+                \Xi_{update}(\xi_{optimized}, H(a_t, o_t), L, I, \{e^1, ..., e^k\}) \rightarrow \xi'_{optimized}, L'
+                \]
+                
+                Successful trajectories are stored in a repository to assist the agent in learning and
+                responding to new instructions and environments.</p>
+
                 </div>
                 <br>
                 <!-- <div class="w3-center" style="width: 70%"><img src="images/Figure2_method.jpg"></div> -->
