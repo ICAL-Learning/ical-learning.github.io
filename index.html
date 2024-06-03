@@ -1090,7 +1090,7 @@
                     </p>
                     <p>where \(s^I\), \(s^{\text{textual}}\), and \(s^{\text{visual}}\) are the similarity scores for the input text instruction, textual state, and visual state, respectively, computed via cosine similarity using embeddings from OpenAI's <code>text-embedding-ada-002</code> model and <code>CLIP ViT-B/32</code> model. The coefficients \(\lambda_{I}\), \(\lambda_{\text{textual}}\), and \(\lambda_{\text{visual}}\) are weighting hyperparameters chosen in each domain by a held out validation set.</p>
                 
-                    <p>The VLM prompt contains the new instruction \(I\), the current webpage image for VisualWebArena or 12 video frames for Ego4D annotated with Set-of-Marks, a textual state description \(x_t\) describing the objects and their attributes for embodied agents and HTML elements for web agents, the action API \(A\), and the retrieved set of in-context examples \(\{e^1,...,e^k\} \in \{e^1,...,e^k\} \in \textit{M}\).</p>
+                    <p>The VLM prompt contains the new instruction \(I\), the current webpage image for VisualWebArena or 12 video frames for Ego4D annotated with Set-of-Marks, a textual state description \(x_t\) describing the objects and their attributes for embodied agents and HTML elements for web agents, the action API \(A\), and the retrieved set of in-context examples \(\{e^1,...,e^k\} \in \textit{M}\).</p>
                 
                 </div>
                 <br>
