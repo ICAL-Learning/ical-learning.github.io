@@ -1027,7 +1027,7 @@
                 </p>
                 
                 <p>
-                    A new domain <i>D</i> represents changes in task variables not captured in VLM pretraining, such as a different environment (e.g., kitchen #1 vs. kitchen #2), task (e.g., "add the cheapest red bike to my wish list"), or user preference (e.g., "I prefer the red cup for coffee"). The core aim of <model> is to abstract each noisy trajectory into a single example <i>e</i>, which then forms part of a memory set <i><exampleset></i>. Each example <i>e &#x2208; <exampleset></i> represents an optimized trajectory <i>&#958;<sub>optimized</sub></i> with generalizable language abstractions <i>L</i>. The objective is to ensure that <i><exampleset></i> collectively encapsulates examples that, when used in a VLMs context window, increase the likelihood of successful task execution in the new domain, while also containing knowledge that is transferable across similar tasks and contexts. This can be encapsulated as:
+                    A new domain <i>D</i> represents changes in task variables not captured in VLM pretraining, such as a different environment (e.g., kitchen #1 vs. kitchen #2), task (e.g., "add the cheapest red bike to my wish list"), or user preference (e.g., "I prefer the red cup for coffee"). The core aim of <model> is to abstract each noisy trajectory into a single example <i>e</i>, which then forms part of a memory set <i>M</i>. Each example <i>e &#x2208; M</i> represents an optimized trajectory <i>&#958;<sub>optimized</sub></i> with generalizable language abstractions <i>L</i>. The objective is to ensure that <i>M</i> collectively encapsulates examples that, when used in a VLMs context window, increase the likelihood of successful task execution in the new domain, while also containing knowledge that is transferable across similar tasks and contexts. This can be encapsulated as:
                 </p>
                 <p>
                     \[
@@ -1035,7 +1035,7 @@
                     \]
                 </p>
                 <p>
-                    where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i><exampleset></i>.
+                    where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i>M</i>.
                 </p>
                 
                 <p>ICAL then processes noisy demonstrations in two phases:</p>
@@ -1052,8 +1052,8 @@
                 Successful trajectories are stored in a repository to assist the agent in learning and
                 responding to new instructions and environments.</p>
 
-                ICAL learns effectively by generating the following types of abstractions:
-                <ul>
+                ICAL learns effectively by generating the 4 types of abstractions:
+                <ol>
                     <li><strong>Task and Causal Abstractions:</strong> Essential principles and actions are identified to achieve goals,
                         explaining how elements interconnect through cause and effect.</li>
                     <li><strong>State Changes:</strong> Crucial for decision-making, predicted state changes during a demonstration are
@@ -1063,7 +1063,7 @@
                     <li><strong>State Abstraction:</strong> Focuses on selecting only relevant state variables interacted with during a
                         demonstration, and suggesting additional relevant state variables, avoiding overwhelming detail and enhancing
                         performance.</li>
-                </ul>
+                </ol>
                 </div>
                 <br>
                 <!-- <div class="w3-center" style="width: 70%"><img src="images/Figure2_method.jpg"></div> -->
@@ -1082,10 +1082,10 @@
                     generation.</p>
                 
                 <p>
-                    A new domain <i>D</i> represents changes in task variables not captured in VLM pretraining, such as a different environment (e.g., kitchen #1 vs. kitchen #2), task (e.g., "add the cheapest red bike to my wish list"), or user preference (e.g., "I prefer the red cup for coffee"). The core aim of <model> is to abstract each noisy trajectory into a single example <i>e</i>, which then forms part of a memory set <i><exampleset></i>. Each example <i>e &#x2208; <exampleset></i> represents an optimized trajectory <i>&#958;<sub>optimized</sub></i> with generalizable language abstractions <i>L</i>. The objective is to ensure that <i><exampleset></i> collectively encapsulates examples that, when used in a VLMs context window, increase the likelihood of successful task execution in the new domain, while also containing knowledge that is transferable across similar tasks and contexts. This can be encapsulated as:
+                    A new domain <i>D</i> represents changes in task variables not captured in VLM pretraining, such as a different environment (e.g., kitchen #1 vs. kitchen #2), task (e.g., "add the cheapest red bike to my wish list"), or user preference (e.g., "I prefer the red cup for coffee"). The core aim of <model> is to abstract each noisy trajectory into a single example <i>e</i>, which then forms part of a memory set <i>M</i>. Each example <i>e &#x2208; M</i> represents an optimized trajectory <i>&#958;<sub>optimized</sub></i> with generalizable language abstractions <i>L</i>. The objective is to ensure that <i>M</i> collectively encapsulates examples that, when used in a VLMs context window, increase the likelihood of successful task execution in the new domain, while also containing knowledge that is transferable across similar tasks and contexts. This can be encapsulated as:
                 </p>
                 <p>
-                    where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i><exampleset></i>.
+                    where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i>M</i>.
                 </p>
                 
                 </div>
