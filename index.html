@@ -310,7 +310,7 @@
     <style>
         .btn-paper {
             width: 95px;
-            height: 30px;
+            height: 35px;
             cursor: pointer;
             border-radius: 25px;
             background: transparent;
@@ -964,9 +964,9 @@
                         </div>
                     </div>
                     <div class="institution-logos">
-                        <img src="images/cmu.png" alt="Carnegie Mellon Logo" style="width:50px;height:auto;vertical-align:middle;">
+                        <!-- <img src="images/cmu.png" alt="Carnegie Mellon Logo" style="width:50px;height:auto;vertical-align:middle;"> -->
                         <span>Carnegie Mellon University</span>
-                        <img src="images/deepmind.png" alt="Deepmind Logo" style="width:50px;height:auto;vertical-align:middle;">
+                        <!-- <img src="images/deepmind.png" alt="Deepmind Logo" style="width:50px;height:auto;vertical-align:middle;"> -->
                         <span>Google Deepmind</span>
                     </div>
 
@@ -981,9 +981,9 @@
                         role="button">
                         <img src="images/code.png" class="vertical-center-code"> Code
                     </a>
-                    <a href="https://twitter.com/GabrielSarch" target="_blank" class="btn-code" role="button" style="width: 115px;">
+                    <!-- <a href="https://twitter.com/GabrielSarch" target="_blank" class="btn-code" role="button" style="width: 115px;">
                         <img src="images/twitt.png" class = "vertical-center-code"> Twitter
-                    </a>
+                    </a> -->
                 </div>
 
                 <!-- <hr> -->
@@ -1076,7 +1076,7 @@
                 <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
                 <hr>
                 <div class="w3-center">
-                    <h2>Memory Retrieval Augmented Generation for Abstraction History</h2>
+                    <h2>Retrieval Augmented Generation using Abstracted Examples</h2>
                 </div>
                 <div>
                 <p>After the ICAL examples have
@@ -1096,7 +1096,7 @@
                 
                 </div>
                 <!-- <div class="w3-center" style="width: 70%"><img src="images/Figure2_method.jpg"></div> -->
-                <div class="w3-center" style="width:100%; margin-left: auto; margin-right: auto;">
+                <div class="w3-center" style="width:50%; margin-left: auto; margin-right: auto;">
                     <img src="images/Figure_deployNew1.jpg">
                 </div>
                 <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
@@ -1115,7 +1115,7 @@
                     <h5>VisualWebArena: Autonomous Visual Web Agents</h5>
                 </div>
                 <p><b>ICAL outperforms the previous state-of-the-art GPT4V +
-                SoM (Koh et. Al., 2023) on the VisualWebArena benchmark</b> by an absolute 8.4% in average success rate. The baseline utilizes GPT4V with few-shot hand-designed examples and set of
+                SoM (Koh et. Al., 2023) on the VisualWebArena benchmark</b>, improving from 14.3% to 22.7% in average success rate. The baseline utilizes GPT4V with few-shot hand-designed examples and set of
                 marks image prompting.</p>
                 <div class="w3-center" style="width: 100%;"><img style="width: 50%" src="images/VWA_plots.jpg"></div>
                 <br>
@@ -1147,9 +1147,9 @@
                 </div>
                 <br>
                 <div class="w3-center">
-                    <h5>Finetuning on ICAL examples complements retrieval</h5>
+                    <h5>LoRA finetuning on ICAL examples complements retrieval</h5>
                 </div>
-                <p><b>The most notable advancement was achieved when fine-tuning was combined with retrieval-augmented generation</b>, achieving a
+                <p><b>The most notable advancement was achieved when LoRA fine-tuning was combined with retrieval-augmented generation</b>, achieving a
                 Success rate of 35.4% and a sub-task score of 55.9%. This demonstrate that consolidating the learned examples through
                 fine-tuning, particularly when integrated with retrieval processes through in-context learning, improves performance.</p>
                 <div class="w3-center" style="width: 100%;"><img style="width: 80%" src="images/finetuning_plots.jpg"></div>
