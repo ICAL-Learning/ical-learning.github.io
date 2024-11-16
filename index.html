@@ -14,7 +14,7 @@
         gtag('config', 'G-Q75H4YSQ8M');
     </script>
     <!-- Adapted from Dave Epstein's BlogGAN webpage template: https://dave.ml/blobgan/ -->
-    <title>ICAL: Continual Learning of Multimodal Agents by Transforming Trajectories into Actionable Insights
+    <title>VLM Agents Generate Their Own Memories: Distilling Experience into Embodied Programs of Thought
     </title>
     <link rel="icon" href="images/memory.png" type="image/png">
     <link rel="stylesheet" href="./bulma.min.css" />
@@ -53,7 +53,7 @@
     </style>
     <meta charset="UTF-8">
     <meta name="description"
-        content="ICAL: Continual Learning of Multimodal Agents by Transforming Trajectories into Actionable Insights">
+        content="VLM Agents Generate Their Own Memories: Distilling Experience into Embodied Programs of Thought">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
@@ -956,7 +956,7 @@
             <!-- paper container -->
             <div class="w3-display-container w3-row w3-white w3-margin-bottom">
                 <div class="w3-center">
-                    <h2>ICAL: Continual Learning of Multimodal Agents by Transforming Trajectories into Actionable Insights</h2>
+                    <h2>VLM Agents Generate Their Own Memories: Distilling Experience into Embodied Programs of Thought</h2>
                     <br>
                     <h5 class="highlighted-text">NeurIPS Spotlight Paper</h5>
                     <br>
@@ -1006,20 +1006,22 @@
                 </div>
                 <p align="justify">Large-scale generative language and vision-language models (LLMs and VLMs) excel in few-shot in-context learning for
                 decision making and instruction following. However, they require high-quality exemplar demonstrations to be included in
-                their context window. In this work, we ask: Can LLMs and VLMs generate their own prompt examples from generic,
-                sub-optimal demonstrations? We propose In-Context Abstraction Learning (ICAL), a method that builds a memory of
-                multimodal experience insights from sub-optimal demonstrations and human feedback. Given a noisy demonstration in a new
-                domain, VLMs abstract the trajectory into a general program by fixing inefficient actions and annotating cognitive
-                abstractions: task relationships, object state changes, temporal subgoals, and task construals. These abstractions are
-                refined and adapted interactively through human feedback while the agent attempts to execute the trajectory in a similar
-                environment. The resulting abstractions, when used as exemplars in the prompt, significantly improve decision-making in
-                retrieval-augmented LLM and VLM agents. Our ICAL agent surpasses the state-of-the-art in dialogue-based instruction
-                following in TEACh, multimodal web agents in VisualWebArena, and action anticipation in Ego4D. In TEACh, we achieve a
-                12.6% improvement in goal-condition success. In VisualWebArena, our task success rate improves over the SOTA from
-                14.3% to 22.7%. In Ego4D action forecasting, we improve over few-shot GPT-4V and remain competitive with supervised
-                models. We show finetuning our retrieval-augmented in-context agent yields additional improvements. Our approach
-                significantly reduces reliance on expert-crafted examples and consistently outperforms in-context learning from action
-                plans that lack such insights.
+                their context window. In this work, we ask: Can LLMs and VLMs generate their own examples from generic, sub-optimal
+                demonstrations? We propose In-Context Abstraction Learning (ICAL), a method that builds a memory of multimodal
+                experience from sub-optimal demonstrations and human feedback. Given a task demonstration that may contain
+                inefficiencies or mistakes, a VLM abstracts the trajectory into a generalized program of thoughts by correcting
+                inefficient actions and annotating cognitive abstractions: causal relationships, object state changes, temporal
+                subgoals, and task-relevant visual elements. These programs of thought are iteratively improved and adapted through
+                human feedback while the agent attempts to execute the trajectory in a similar environment. The resulting examples, when
+                used as exemplars in the prompt, significantly improve decision-making in retrieval-augmented LLM and VLM agents.
+                Moreover, as the agent's library of examples grows, it becomes more efficient, relying less on human feedback and
+                requiring fewer environment interactions per demonstration. Our ICAL agent surpasses the state-of-the-art in
+                dialogue-based instruction following in TEACh, multimodal web agents in VisualWebArena, and action anticipation in
+                Ego4D. In TEACh, we achieve a 12.6% improvement in goal-condition success. In VisualWebArena, our task success rate
+                improves over the SOTA from 14.3% to 22.7% using GPT4V. In Ego4D action forecasting, we improve over few-shot GPT-4V
+                and remain competitive with supervised models. We show finetuning our retrieval-augmented in-context agent yields
+                additional improvements. Our approach significantly reduces reliance on manual prompt engineering and consistently
+                outperforms in-context learning from action plans that lack such programs of thought.
                 </p>
                 <div class="w3-center" style="width: 100%;"><img
                     style="width: 30%" src="images/white_space.jpg"></div>
@@ -1049,7 +1051,7 @@
                     where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i>M</i>.
                 </p>
 
-                ICAL learns effectively by generating 4 types of abstractions:
+                ICAL learns effectively by generating programs of thought:
                 <ol>
                     <li><strong>Task and Causal Abstractions:</strong> Essential principles and actions are identified to achieve goals,
                         explaining how elements interconnect through cause and effect.</li>
@@ -1650,7 +1652,7 @@
                     <h2>Citation</h2>
                     <div class="cit_cont">
                         <pre style="background-color:#F5F5F5;"><code><font size="-1">@inproceedings{sarch2024ical,
-                        title = "ICAL: Continual Learning of Multimodal Agents by Transforming Trajectories into Actionable Insights",
+                        title = "VLM Agents Generate Their Own Memories: Distilling Experience into Embodied Programs of Thought",
                         author = "Sarch, Gabriel and
                         Jang, Lawrence and
                         Tarr, Michael and
