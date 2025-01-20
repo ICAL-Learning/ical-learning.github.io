@@ -1006,24 +1006,18 @@
                 <!-- <img src="images/intro.jpg" alt="Tease Image" style="max-width:80%; height:auto; margin-bottom:20px;"> -->
                     <h2>Abstract</h2>
                 </div>
-                <p align="justify">Large-scale generative language and vision-language models (LLMs and VLMs) excel in few-shot in-context learning for
-                decision making and instruction following. However, they require high-quality exemplar demonstrations to be included in
-                their context window. In this work, we ask: Can LLMs and VLMs generate their own examples from generic, sub-optimal
-                demonstrations? We propose In-Context Abstraction Learning (ICAL), a method that builds a memory of multimodal
-                experience from sub-optimal demonstrations and human feedback. Given a task demonstration that may contain
-                inefficiencies or mistakes, a VLM abstracts the trajectory into a generalized program of thoughts by correcting
-                inefficient actions and annotating cognitive abstractions: causal relationships, object state changes, temporal
-                subgoals, and task-relevant visual elements. These programs of thought are iteratively improved and adapted through
-                human feedback while the agent attempts to execute the trajectory in a similar environment. The resulting examples, when
-                used as exemplars in the prompt, significantly improve decision-making in retrieval-augmented LLM and VLM agents.
-                Moreover, as the agent's library of examples grows, it becomes more efficient, relying less on human feedback and
-                requiring fewer environment interactions per demonstration. Our ICAL agent surpasses the state-of-the-art in
-                dialogue-based instruction following in TEACh, multimodal web agents in VisualWebArena, and action anticipation in
-                Ego4D. In TEACh, we achieve a 12.6% improvement in goal-condition success. In VisualWebArena, our task success rate
-                improves over the SOTA from 14.3% to 22.7% using GPT4V. In Ego4D action forecasting, we improve over few-shot GPT-4V
-                and remain competitive with supervised models. We show finetuning our retrieval-augmented in-context agent yields
-                additional improvements. Our approach significantly reduces reliance on manual prompt engineering and consistently
-                outperforms in-context learning from action plans that lack such programs of thought.
+                <p align="justify">Large-scale LLMs and VLMs excel at few-shot learning but require high-quality examples. We introduce In-Context
+                Abstraction Learning (ICAL), which iteratively refines suboptimal trajectories into high-quality data with optimized
+                actions and detailed reasoning. Given an inefficient demonstration, a VLM corrects actions and annotates causal
+                relationships, object states, subgoals, and task-relevant visuals, forming "programs of thought." With human feedback,
+                these programs are improved as the agent executes them in a similar environment. The resulting examples, used as prompt
+                context or fine-tuning data, significantly boost decision-making while reducing human feedback needs. ICAL surpasses
+                state-of-the-art in TEACh (dialogue-based instruction following), VisualWebArena (multimodal web agents), and Ego4D
+                (egocentric video action anticipation). In TEACh, combining fine-tuning and retrieval on ICAL examples outperforms raw
+                human demonstrations and expert examples, achieving a 17.5% increase in goal-condition success. In VisualWebArena,
+                retrieval-augmented GPT-4V with ICAL improves task success rate 1.6x over GPT-4V, while fine-tuning Qwen2-VL achieves a
+                2.8x improvement. In Ego4D, ICAL outperforms few-shot GPT-4V and remains competitive with supervised models. Overall,
+                ICAL scales 2x better than raw human demonstrations and reduces manual prompt engineering.
                 </p>
                 <div class="w3-center" style="width: 100%;"><img
                     style="width: 30%" src="images/white_space.jpg"></div>
