@@ -1003,7 +1003,7 @@
                 
                 <hr>
                 <div class="w3-center">
-                <img src="images/intro.jpg" alt="Tease Image" style="max-width:80%; height:auto; margin-bottom:20px;">
+                <!-- <img src="images/intro.jpg" alt="Tease Image" style="max-width:80%; height:auto; margin-bottom:20px;"> -->
                     <h2>Abstract</h2>
                 </div>
                 <p align="justify">Large-scale generative language and vision-language models (LLMs and VLMs) excel in few-shot in-context learning for
@@ -1045,12 +1045,28 @@
                     A new domain <i>D</i> represents changes in task variables not captured in VLM pretraining, such as a different environment (e.g., kitchen #1 vs. kitchen #2), task (e.g., "add the cheapest red bike to my wish list"), or user preference (e.g., "I prefer the red cup for coffee"). The core aim of <model> is to abstract each noisy trajectory into a single example <i>e</i>, which then forms part of a memory set <i>M</i>. Each example <i>e &#x2208; M</i> represents an optimized trajectory <i>&#958;<sub>optimized</sub></i> with generalizable language abstractions <i>L</i>. The objective is to ensure that <i>M</i> collectively encapsulates examples that, when used in a VLMs context window, increase the likelihood of successful task execution in the new domain, while also containing knowledge that is transferable across similar tasks and contexts. This can be encapsulated as:
                 </p>
                 <p>
-                    \[
+                    <!-- \[
                     \max_{E} \mathbb{E}[R | e, I, o_t, D]
+                    \] -->
+                    \[
+                    \max_{M} \mathbb{E}\left[ \sum_{t=0}^T r_t(o_t, a_t) \,\Big|\, a_t \sim \pi(a \mid h_t, M, I), D \right]
                     \]
                 </p>
                 <p>
-                    where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i>M</i>.
+                    where:
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li>\( M \) represents the memory or model parameters that influence the policy \(\pi\).</li>
+                        <li>\( \mathbb{E}[\cdot] \) denotes the expectation over the random variables involved in the decision-making
+                            process.</li>
+                        <li>\( r_t(o_t, a_t) \) is the reward function at time \( t \), dependent on the observation \( o_t \) and action \(
+                            a_t \).</li>
+                        <li>\( a_t \sim \pi(a \mid h_t, M, I) \) indicates that the action \( a_t \) is sampled from a policy \(\pi\),
+                            conditioned on the history \( h_t \), memory \( M \), and additional input \( I \).</li>
+                        <li>\( h_t = \{o_0, a_0, \ldots, o_{t-1}, a_{t-1}, o_t\} \) is the history up to time \( t \).</li>
+                        <li>\( D \) represents the new domain or task to learn.</li>
+                        <li>\( T \) is the time horizon over which the reward is summed.</li>
+                    </ul>
+                    <!-- where <i>R</i> is the return or the cumulative reward acquired by performing actions based on the instruction <i>I</i>, observation <i>o<sub>t</sub></i>, and in-context example memory set <i>M</i>. -->
                 </p>
 
                 ICAL learns effectively by generating programs of thought:
@@ -1066,13 +1082,13 @@
                         performance.</li>
                 </ol>
                 
-                <p>ICAL processes noisy demonstrations in two phases:</p>
+                <p>ICAL processes noisy/suboptimal/incorrect trajectories, coming from a human or agent policy, in two phases:</p>
                 <p>
-                (1) the abstraction phase where a VLM is prompted to correct errors and generate language and visual abstractions:
+                (1) the abstraction phase where a VLM is prompted to correct action errors and generate initial programs of thought:
                 \[
                 F_{abstract}: (\xi_{noisy}, I, \{e^1, \ldots, e^k\}) \rightarrow (\xi_{optimized}, L)
                 \]
-                (2) the human-in-the-loop phase, where the abstractions are refined guided by human feedback \(H(a_t, o_t)\). The model update can be represented as \(\Xi_{\text{update}}\): 
+                (2) the human-in-the-loop phase, where the actions and programs of thought are refined guided by human feedback \(H(a_t, o_t)\). The model update can be represented as \(\Xi_{\text{update}}\): 
                 \[
                 \Xi_{update}(\xi_{optimized}, H(a_t, o_t), L, I, \{e^1, ..., e^k\}) \rightarrow \xi'_{optimized}, L'
                 \]
@@ -1089,13 +1105,14 @@
                 <div class="w3-center" style="width: 100%;"><img style="width: 30%" src="images/white_space.jpg"></div>
                 <hr>
                 <div class="w3-center">
-                    <h2>Retrieval Augmented Generation using Abstracted Examples</h2>
+                    <h2>Retrieval Augmented Generation (RAG) and Supervised Fine-tuning (SFT) using Abstracted Examples</h2>
                 </div>
                 <div>
                 <p>After the ICAL examples have
-                    been learned, ICAL is deployed for new tasks
-                    and environments using retrieval-augmented
-                    generation.</p>
+                    been learned, ICAL uses retrieval-augmented
+                    generation or supervised fine-tuning to teach the agent to perform the new tasks.</p>
+
+                    <b>Retrieval Augmented Generation (RAG)</b>
                 
                     <p>Given the learned example set <i>M</i> and a new instruction \(I\), we prompt the VLM to carry out the instruction by producing action sequences \(\{a_0, ..., a_T\} \in A\) from an action API that describes the skills set \(A\) (e.g., <code>go_to(X)</code>, <code>pickup(X)</code>), by retrieving the top \(K\) examples from <i>M</i> to include in the prompt based on their textual and visual similarity with the current scene.</p>
 
@@ -1106,6 +1123,15 @@
                     <p>where \(s^I\), \(s^{\text{textual}}\), and \(s^{\text{visual}}\) are the similarity scores for the input text instruction, textual state, and visual state, respectively, computed via cosine similarity using embeddings from OpenAI's <code>text-embedding-ada-002</code> model and <code>CLIP ViT-B/32</code> model. The coefficients \(\lambda_{I}\), \(\lambda_{\text{textual}}\), and \(\lambda_{\text{visual}}\) are weighting hyperparameters chosen in each domain by a held out validation set.</p>
                 
                     <p>The VLM prompt contains the new instruction \(I\), the current webpage image for VisualWebArena or 12 video frames for Ego4D annotated with Set-of-Marks, a textual state description \(x_t\) describing the objects and their attributes for embodied agents and HTML elements for web agents, the action API \(A\), and the retrieved set of in-context examples \(\{e^1,...,e^k\} \in \textit{M}\).</p>
+
+                    <b>Supervised Fine-tuning (SFT)</b>
+                    
+                    <p> Supervised fine-tuning trains the multimodal LLM, Qwen2-VL, to directly predict the ICAL programs of thought and
+                        corresponding action sequences for new tasks. The training dataset pairs task instructions \(I\), multimodal inputs
+                        \(S\) (e.g., visual frames, textual descriptions), and ground truth outputs, including intermediate reasoning steps
+                        and final actions. </p>
+                    <p> The model learns to generate structured ICAL outputs and actions end-to-end, enabling it to perform tasks without
+                        relying on retrieval from learned examples.</p>
                 
                 </div>
                 <!-- <div class="w3-center" style="width: 70%"><img src="images/Figure2_method.jpg"></div> -->
@@ -1130,7 +1156,8 @@
                 <p><b>ICAL outperforms the previous state-of-the-art GPT4V +
                 SoM (Koh et. Al., 2023) on the VisualWebArena benchmark</b>, improving from 14.3% to 22.7% in average success rate. The baseline utilizes GPT4V with few-shot hand-designed examples and set of
                 marks image prompting.</p>
-                <div class="w3-center" style="width: 100%;"><img style="width: 50%" src="images/VWA_plots.jpg"></div>
+                <!-- <div class="w3-center" style="width: 100%;"><img style="width: 50%" src="images/VWA_plots.jpg"></div> -->
+                <div class="w3-center" style="width: 100%;"><img style="width: 50%" src="images/VWA_results.png"></div>
                 <br>
                 <div class="w3-center">
                     <h5>Ego4D: Video Action Forecasting</h5>
@@ -1143,26 +1170,36 @@
                     style="width: 30%" src="images/white_space.jpg"></div>
                 <hr>
                 <br>
-                <div class="w3-center">
+                <!-- <div class="w3-center">
                     <h2>Additional Takeaways</h2>
-                </div>
+                </div> -->
 
                 <div class="w3-center">
-                    <h5>Continual Learning</h5>
+                    <h5>ICAL Scaling and Continual Learning</h5>
                 </div>
-                <p>ICAL shows <b>continual improvements in TEACh unseen success rate</b> with more examples learned. Our method benefits from even a small amount of examples learned, with an improvement of an absolute 14.7% success rate over chain-of-thought prompting with just 10 examples learned.</p>
+                <p>ICAL scales 2x better than raw human demonstrations. ICAL shows <b>continual improvements in TEACh unseen success rate</b> with more examples learned. Our method benefits from even a small amount of examples learned, with an improvement of an absolute 14.7% success rate over chain-of-thought prompting with just 10 examples learned.</p>
                 <div class="w3-center">
                 <video width="40%" playsinline autoplay muted loop>
                     <source src="images/output_video_plot (4).mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                <div class="w3-center" style="width: 100%;"><img style="width: 100%" src="images/scaling_plots.png"></div>
                 <p>*values interpolated for visualization</p>
                 </div>
                 <br>
                 <div class="w3-center">
+                    <h5>ICAL Meta-learning</h5>
+                </div>
+                <p>ICAL requires less human feedback over time by leveraging learned examples. In TEACh, for the second half of
+                examples processed, the model requires significantly fewer environment steps (436±88
+                vs. 267±43, p=0.0143) and human feedbacks (0.74±0.17 vs. 0.21±0.08, p=0.0089)
+                per example.</p>
+                <div class="w3-center" style="width: 100%;"><img style="width: 40%" src="images/reduced_human_effort.png"></div>
+                <br>
+                <div class="w3-center">
                     <h5>LoRA finetuning on ICAL examples complements retrieval</h5>
                 </div>
-                <p><b>The most notable advancement was achieved when LoRA fine-tuning was combined with retrieval-augmented generation</b>, achieving a
+                <p><b>In TEACh, using GPT3.5, the most notable advancement was achieved when LoRA fine-tuning was combined with retrieval-augmented generation</b>, achieving a
                 Success rate of 35.4% and a sub-task score of 55.9%. This demonstrate that consolidating the learned examples through
                 fine-tuning, particularly when integrated with retrieval processes through in-context learning, improves performance.</p>
                 <div class="w3-center" style="width: 100%;"><img style="width: 80%" src="images/finetuning_plots.jpg"></div>
@@ -1182,9 +1219,9 @@
                 <br>
                 <hr>
                 <div class="w3-center">
-                    <h2>ICAL Abstraction Examples</h2>
+                    <h2>ICAL Examples</h2>
                 </div>
-                <p>Below we show examples of the raw trajectories obtained from human demonstrations, and the ICAL abstracted examples on the right. Click on a task tab to show the example before and after applying ICAL. You can scroll to view the full abstractions.</p>
+                <p>Below we show examples of the raw trajectories obtained from human or agent demonstrations, and the ICAL examples with optimized actions and programs of thought on the right. Click on a task tab to show the example before and after applying ICAL. You can scroll to view the full examples.</p>
                 
                 <div class="w3-center" style="width: 50%;"><img style="width: 30%" src="images/white_space.jpg" class="nopadimg"></div>
                 
